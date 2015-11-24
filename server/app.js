@@ -22,6 +22,7 @@ app.enable('trust proxy');
 
 // require routes
 var auth_routes = require('./routes/auth-api.js');
+var default_route = require('./routes/index');
 
 // define middleware
 app.use(express.static(path.join(__dirname, '../client')));
@@ -45,9 +46,7 @@ passport.deserializeUser(User.deserializeUser());
 
 // routes
 app.use('/auth/', auth_routes);
-app.get('/', function(req, res) {
-  res.sendFile(path.join(__dirname, '../client', 'index.html'));
-});
+app.use('/', default_route);
 
 // error hndlers
 app.use(function(req, res, next) {
