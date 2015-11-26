@@ -1,4 +1,4 @@
-angular.module('crud_app').factory('AuthService',
+angular.module('app').factory('AuthService',
   ['$q', '$timeout', '$http',
   function ($q, $timeout, $http) {
 
