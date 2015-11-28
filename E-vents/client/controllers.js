@@ -1,5 +1,5 @@
 /* handle login and submit */
-angular.module('crud_app').controller('loginController',
+angular.module('app').controller('loginController',
   ['$scope', '$location', 'AuthService', 'UserService',
   function ($scope, $location, AuthService, UserService) {
 
@@ -40,7 +40,7 @@ angular.module('crud_app').controller('loginController',
 }]);
 
 /* handle logout */
-angular.module('crud_app').controller('logoutController',
+angular.module('app').controller('logoutController',
   ['$scope', '$location', 'AuthService', 'UserService',
   function ($scope, $location, AuthService, UserService) {
 
@@ -55,7 +55,7 @@ angular.module('crud_app').controller('logoutController',
 }]);
 
 /* handle login and register */
-angular.module('crud_app').controller('registerController',
+angular.module('app').controller('registerController',
   ['$scope', '$location', 'AuthService',
   function ($scope, $location, AuthService) {
 
