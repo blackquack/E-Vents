@@ -4,12 +4,42 @@ app.controller('postingController',
   	['$scope', 'PostingService',
   	function ($scope, PostingService) {
 
+  		/* GAMES */
 	    $scope.games = [
 		    'Dota2', 
 		    'LoL', 
 		    'CS:GO', 
 		    'HearthStone'
-		  ];
+		];
+
+		/* LOCATIONS */
+		$scope.locations = [
+			'Toronto',
+			'Montreal',
+			'Ottawa',
+			'New York'
+		];
+
+		$scope.location = $scope.locations[0]; //default value
+		$scope.locSelect = function(loc) {
+			$scope.location = loc;
+		}
+
+		/* DATE */
+  		$scope.date = new Date();
+
+		$scope.minDate = new Date(
+	      	$scope.date.getFullYear(),
+	      	$scope.date.getMonth(),
+	      	$scope.date.getDate()
+	    );
+
+		/* GAMES CHECKBOX FUNCTIONALIY */
+	    $scope.filterValue = function($event){
+        if(isNaN(String.fromCharCode($event.keyCode))){
+            $event.preventDefault();
+        	}
+		};
 
 	  	$scope.selection = [];
 	  		$scope.toggleSelection = function toggleSelection(game) {
@@ -26,42 +56,33 @@ app.controller('postingController',
 	    	}
 		};
 
-		  $scope.register = function() {
-		 console.log("name:" + $scope.name);
-		 console.log("location:" + $scope.location);
-		 console.log("date:" + $scope.date);
-		 console.log("cost:" + $scope.cost);
-		 console.log("selection:" + $scope.selection[2]);	
-		  }
+		/* REGISTER BUTTON */
+		$scope.register = function() {
+		 	var result = PostingService.register.save({
+				name: $scope.name, 
+				location: $scope.location, 
+				date: $scope.date,
+				cost:$scope.cost
+			})
+		}
 
-		var result = PostingService.save({name:"name", location:"loc", date:"date", cost:"cost"})
-		console.log(result)
+
+		/* SHOW EVENT POSTINGS */
+		PostingService.allPost.query(function(result){
+			$scope.events = result
+		});
+
+
+
 	}
 ]);
 
 app.factory('PostingService', ['$resource', function ($resource) {
-		return $resource('/api/post/register');
+	return ({
+		register: $resource('/api/post/register'),
+		allPost: $resource('/api/post/all')
+	})
+	
+        	//return $resource('/api/post/register');
+
 }])
-
-// app.factory('PostingService', ['$q','$http', function ($q, $http) {
-//     return ({
-//       	post: function login(name, loc, date, cost) {
-
-//         	var deferred = $q.defer();
-
-//         	$http.post('/api/post/register', {name:name, location:loc, date:date, cost:cost})
-//           	.success(function (data, status) {
-//             	if(status === 200 && data.status){
-//               	user = username;
-//               	deferred.resolve();
-//             	} else {
-//               	deferred.reject();
-//             	}
-//           	})
-//           	.error(function (data) {
-//             	deferred.reject();
-//           	});
-//         	return deferred.promise;
-//       	}
-//     })
-// }]);
