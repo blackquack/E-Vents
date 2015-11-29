@@ -1,13 +1,13 @@
 var mongoose = require('mongoose');
 
-
 var PostSchema = new mongoose.Schema({
     name: String,
     location: String,
     date: Date,
     cost: Number,
     likes: Number,
-    comments: [{username:String, comment:String}]
+    comments: [{username:String, comment:String}],
+
 });
 
 PostSchema.statics.getPost = function(id, callback) {
