@@ -6,8 +6,6 @@ router.get('/', function(req, res, next) {
   res.sendFile('index.html');
 });
 
-router.get('*', function(req, res, next){
-	res.redirect('/');
-})
+
 
 module.exports = router;

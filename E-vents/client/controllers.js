@@ -1,7 +1,7 @@
 /* handle login and submit */
 angular.module('app').controller('loginController',
-  ['$scope', '$location', 'AuthService', 'UserService',
-  function ($scope, $location, AuthService, UserService) {
+  ['$scope', '$location', 'AuthService',
+  function ($scope, $location, AuthService) {
 
     // user clicks log in
     $scope.login = function () {
@@ -13,20 +13,6 @@ angular.module('app').controller('loginController',
         .then(function () {
 
           //update the user's location
-          if (navigator.geolocation) {
-              navigator.geolocation.getCurrentPosition(showPosition);
-          } else { 
-              console.log("Geolocation is not supported by this browser.");
-          }
-
-          function showPosition(position) {
-            UserService.getUser(AuthService.getUser())
-              .then(function (result) {
-                var user = result[0];
-                var cords = "Latitude: " + position.coords.latitude + ", Longitude: " + position.coords.longitude;
-                UserService.updateUserBehaviour(user.username, user.pages, cords);
-              })
-          }
 
           $location.path('/welcome');
         })
@@ -36,23 +22,29 @@ angular.module('app').controller('loginController',
           $scope.errorMessage = "Invalid email and/or password";
         });
 
-    };
-}]);
+      };
+    }]);
 
+angular.module('app').controller('homeController',
+  ['$scope', '$location', 'AuthService',
+  function ($scope, $location, AuthService) {
+
+    $scope.greet = "Home Page";
+  }]);
 /* handle logout */
 angular.module('app').controller('logoutController',
-  ['$scope', '$location', 'AuthService', 'UserService',
-  function ($scope, $location, AuthService, UserService) {
+  ['$scope', '$location', 'AuthService',
+  function ($scope, $location, AuthService) {
 
     $scope.logout = function () {
 
       // call logout from service
       AuthService.logout()
-        .then(function () {
-          $location.path('/login');
-        });
+      .then(function () {
+        $location.path('/login');
+      });
     };
-}]);
+  }]);
 
 /* handle login and register */
 angular.module('app').controller('registerController',
@@ -82,5 +74,17 @@ angular.module('app').controller('registerController',
           $scope.errorMessage = 'Email already exist!';
         });
 
-    };
-}]);
+      };
+    }]);
+
+/* handle navigaton bar on the top */
+
+
+/* handle the welcome page */
+angular.module('app').controller('welcomeController',
+  ['$scope', '$location', 'AuthService', 
+  function ($scope, $location, AuthService) {
+      $scope.username = AuthService.getUser();
+
+  }]);
+

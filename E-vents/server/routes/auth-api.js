@@ -6,25 +6,15 @@ var express = require('express'),
 
 /* request to register a user */
 router.post('/register', function(req, res) {
-  var userLevel = 'regular';
 
-  User.count({}, function(err, count){
-    // super admin if first one
-    if (count < 1) userLevel = 's.admin'
-
-    // get ip address
-    var ip = req.headers['x-forwarded-for'] || 
-         req.connection.remoteAddress || 
-         req.socket.remoteAddress ||
-         req.connection.socket.remoteAddress;
 
     User.register(new User({ 
       username: req.body.username, 
       displayName: "", 
       description: "", type: userLevel,
-      imageLocation: path.join(__dirname, '../images/default', 'default.gif'),
+      //imageLocation: path.join(__dirname, '../images/default', 'default.gif'),
       pages: {welcome: 0, profile:0, edit:0},
-      ipAddress: ip }), 
+      }), 
 
       req.body.password, function(err, account) {
         if (err) {
@@ -35,7 +25,6 @@ router.post('/register', function(req, res) {
         });
     });
 
-  });
 });
 
 /* request to log in user */
