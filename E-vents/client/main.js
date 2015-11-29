@@ -13,7 +13,7 @@ app.config(function ($routeProvider) {
       templateUrl: 'views/register.html', 
       controller: 'registerController',
     })
-    .when('/events', {
+    .when('/createEvent', {
       templateUrl: 'views/posting.html',
       controller: 'postingController'    
     })
