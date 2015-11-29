@@ -3,8 +3,7 @@ var app = angular.module('app', ['ngRoute', 'ngResource', 'ngMaterial', 'ngMessa
 app.config(function ($routeProvider) {
   $routeProvider
     .when('/', {
-      templateUrl: 'views/login.html',
-      controller: 'loginController'
+      templateUrl: 'views/home.html',
     })
     .when('/login', {
       templateUrl: 'views/login.html', 
