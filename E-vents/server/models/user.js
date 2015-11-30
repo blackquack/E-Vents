@@ -7,7 +7,7 @@ var mongoose = require('mongoose'),
 var User = new Schema({
   username: {type: String, unique: true, required: true},
   password: String,
-  displayName: String
+  displayName: String,
   attendance: [{type: mongoose.Schema.Types.ObjectId, ref: 'Post'}],
   likes: [{type: mongoose.Schema.Types.ObjectId, ref: 'Post'}],
   messages: [{type: mongoose.Schema.Types.ObjectId, ref: 'Message'}]
