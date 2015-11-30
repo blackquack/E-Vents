@@ -6,8 +6,10 @@ var PostSchema = new mongoose.Schema({
     date: Date,
     cost: Number,
     likes: Number,
+    game: String,
     comments: [{username:String, comment:String}],
-
+    creator: {type: mongoose.Schema.Types.ObjectId, ref: 'User'}
+    attendance: [{type: mongoose.Schema.Types.ObjectId, ref: 'User'}]
 });
 
 PostSchema.statics.getPost = function(id, callback) {
