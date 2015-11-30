@@ -47,28 +47,28 @@ router.get('/:location', function(req, res) {
     });
 });
 
-router.post('/:id/join/:user', function(req, res) {
-    Post.update({ _id: req.params.id }, { $push: { attendance: req.params.user } }, function(err) {
+router.post('/join', function(req, res) {
+    Post.update({ _id: req.body.id }, { $push: { attendance: req.body.user } }, function(err) {
         if (err) return res.status(400).send({err: err});
         return res.send(200);
     });
 });
 
-router.post('/:id/comment/:user', function(req, res) {
-    Post.update({ _id: req.params.id }, { $push: { comments: { username: req.params.user, comment: req.body.comment } } }, function(err) {
+router.post('/comment', function(req, res) {
+    Post.update({ _id: req.body.id }, { $push: { comments: { username: req.body.user, comment: req.body.comment } } }, function(err) {
         if (err) return res.status(400).send({err: err});
         return res.send(200);
     });
 });
 
-router.post('/:id/like/:user', function(req, res) {
+router.post('/like', function(req, res) {
     Post.findByIdAndUpdate(
-        req.params.id,
+        req.body.id,
         { $inc: { likes: 1 }},
         { new: true, safe: true, upsert: true },
         function(err, post) {
             if (err) return res.status(400).send({err: err});
-            User.update({ username: req.params.user }, { $push: { likes: post._id } }, function(err) {
+            User.update({ username: req.body.user }, { $push: { likes: post } }, function(err) {
                 if (err) return res.status(400).send({err: err});
             });
             return res.send(200);
@@ -76,14 +76,14 @@ router.post('/:id/like/:user', function(req, res) {
     );
 });
 
-router.post('/:id/unlike/:user', function(req, res) {
+router.post('/unlike', function(req, res) {
     Post.findByIdAndUpdate(
-        req.params.id,
+        req.body.id,
         { $inc: { likes: -1 }},
         { new: true, safe: true, upsert: true },
         function(err, post) {
             if (err) return res.status(400).send({err: err});
-            User.update({ username: req.params.user }, { $pull: { likes: post._id } }, function(err) {
+            User.update({ username: req.body.user }, { $pull: { likes: post} }, function(err) {
                 if (err) return res.status(400).send({err: err});
             });
             return res.send(200);
