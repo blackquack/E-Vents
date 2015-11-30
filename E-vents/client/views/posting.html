@@ -1,13 +1,20 @@
 <div class="row">
     <div class="col-md-6">
 <!--         <div ng-show="profileSuccess" class="alert alert-success">{{profileMessage}}</div> -->      	<form class="form">
-
+          <h1>Host an E-Vent</h1>
 	        <div class="form-group">
 	          	<label class="control-label">Event Name</label>
 	          	  <div class="form-control-static">
-            		<input type="text" ng-model="name">
+            		<input type="text" ng-model="name" required="true">
           		</div>
 	        </div>
+
+          <div class="form-group">
+              <label class="control-label">Event Description</label>
+                <div class="form-control-static">
+                <input class="text" ng-model="description">
+              </div>
+          </div>
 
         	<div class="form-group">
           		<label class="control-label">Location</label>
@@ -31,6 +38,7 @@
         	<div class="form-group">
           		<label class="control-label">Cost</label>
           		<div class="form-control-static">
+                <span class="form-control-addon">$</span>
             		<input type="text" ng-keypress="filterValue($event)" ng-model="cost">
           		</div>
         	</div>
@@ -69,5 +77,27 @@
           <md-button ng-click="join()">Join</md-button>
         </md-card-actions>
       </md-card>
+    </div>
+
+    <div class="col-md-9">
+      <div class="thumbnail" ng-repeat="event in events">
+        <img class="img-responsive" src="http://i.imgur.com/qO6cDtO.png" alt="">
+        <div class="caption-full">
+          <h4 class="pull-right">${{event.cost}}  <a class="btn btn-primary">SIGN UP</a></h4>
+          <h4><a href="#">{{event.name}}</a></h4>
+          <p>{{event.date}}</p>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+        </div>
+        <div class="ratings">
+          <p class="pull-right">2 comments</p>
+          <p>
+            <button type="button" class="btn btn-default btn-sm">
+              <i class="fa fa-thumbs-o-up"></i> 
+              Like
+            </button>
+            10 likes
+          </p>
+        </div>
+      </div>
     </div>
 </div>

@@ -13,9 +13,15 @@ app.config(function ($routeProvider) {
       templateUrl: 'views/register.html', 
       controller: 'registerController',
     })
-    .when('/events', {
+    .when('/createEvent', {
       templateUrl: 'views/posting.html',
       controller: 'postingController'    
+    })
+    .when('/about', {
+      templateUrl: 'views/about.html',   
+    })
+    .when('/event', {
+      templateUrl: 'views/event.html',   
     })
     .otherwise({redirectTo: '/'});
 });
