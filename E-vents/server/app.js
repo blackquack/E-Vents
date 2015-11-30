@@ -5,20 +5,19 @@ var express = require('express'),
     bodyParser = require('body-parser'),
     expressSession = require('express-session'),
     mongoose = require('mongoose'),
-    hash = require('bcrypt-nodejs'),
     path = require('path'),
     passport = require('passport'),
     localStrategy = require('passport-local').Strategy;
 
 // mongoose
-mongoose.connect('mongodb://localhost/csc309-a5');
+mongoose.connect('mongodb://localhost/csc309-a5-test');
 
 // user schema/model
 var User = require('./models/user.js');
 
 // create instance of express
 var app = express();
-app.enable('trust proxy');
+//app.enable('trust proxy');
 
 // require routes
 var auth_routes = require('./routes/auth-api');
@@ -28,16 +27,21 @@ var posting_route = require('./routes/api_posting');
 // define middleware
 app.use(express.static(path.join(__dirname, '../client')));
 app.use(logger('dev'));
+
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+
+app.use(bodyParser.urlencoded({ extended: true }));
+
 app.use(cookieParser());
 app.use(require('express-session')({
     secret: 'keyboard cat',
-    resave: false,
-    saveUninitialized: false
+    saveUninitialized: true,
+    resave: true
 }));
+
 app.use(passport.initialize());
 app.use(passport.session());
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 // configure passport

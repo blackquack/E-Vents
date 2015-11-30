@@ -10,10 +10,8 @@ router.post('/register', function(req, res) {
 
     User.register(new User({ 
       username: req.body.username, 
-      displayName: "", 
-      description: "", type: userLevel,
-      //imageLocation: path.join(__dirname, '../images/default', 'default.gif'),
-      pages: {welcome: 0, profile:0, edit:0},
+      name: "", 
+
       }), 
 
       req.body.password, function(err, account) {
