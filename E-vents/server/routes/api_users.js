@@ -30,7 +30,7 @@ router.get('/:user/messages', function(req, res) {
 
 router.get('/:user/messages/:id', function(req, res) {
 	User.
-		find({ username: req.params.user }).
+		findOne({ username: req.params.user }).
 		select('messages').
 		where({ messages: { $in: [req.params.id] }}).
 		populate('messages').

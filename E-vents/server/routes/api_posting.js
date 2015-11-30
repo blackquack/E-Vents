@@ -11,11 +11,15 @@ router.post('/register', function(req, res) {
         cost: req.body.cost,
         likes: 0,
         comments: [],
-        creator: req.user,
-        attendance: []
+        creator: req.body.creator,
+        attendance: [req.body.creator]
     }, function(err, post) {
         if (err) return res.status(409).send({err: err}); 
-        return res.status(200).send(post);
+        User.update({ username: req.body.creator }, { $push: { attendance: post.id } }, function(err) {
+            if (err) return res.status(400).send({err: err});
+            return res.status(200).send(post);
+
+        });
     })
 });
 
@@ -33,15 +37,15 @@ router.get('/:id', function(req, res) {
     });
 });
 
-router.get('/:title', function(req, res) {
-    Post.find({ _id: req.params.title }, function(err, post) {
+router.get('/name/:name', function(req, res) {
+    Post.find({ name: req.params.name }, function(err, posts) {
         if (err) return res.status(409).send({err: err});
         return res.status(200).send(posts)
     });
 });
 
-router.get('/:location', function(req, res) {
-    Post.find({ _id: req.params.location }, function(err, post) {
+router.get('/location/:location', function(req, res) {
+    Post.find({ location: req.params.location }, function(err, posts) {
         if (err) return res.status(409).send({err: err});
         return res.status(200).send(posts)
     });

@@ -1,8 +1,8 @@
 var mongoose = require('mongoose');
 
 var MessageSchema = new mongoose.Schema({
-	from: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
-	to: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
+	from: String,
+	to: String,
 	date: Date,
 	message: String 
 });
