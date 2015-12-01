@@ -20,8 +20,9 @@ app.config(function ($routeProvider) {
     .when('/about', {
       templateUrl: 'views/about.html',   
     })
-    .when('/event', {
+    .when('/event/:id', {
       templateUrl: 'views/event.html',   
+      controller: 'eventController'
     })
     .otherwise({redirectTo: '/'});
 });

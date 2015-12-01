@@ -49,6 +49,7 @@ app.controller('registerPostingController',
 
 		 	var result = PostingService.register.save({
 				name: $scope.name, 
+				description: $scope.description,
 				location: $scope.address + ', ' + $scope.city, 
 				date: $scope.date,
 				cost:$scope.cost,
