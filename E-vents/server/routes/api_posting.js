@@ -42,28 +42,35 @@ router.get('/:id', function(req, res) {
 router.get('/name/:name', function(req, res) {
     Post.find({ name: req.params.name }, function(err, posts) {
         if (err) return res.status(409).send({err: err});
-        return res.status(200).send(posts)
+        return res.status(200).send(posts);
     });
 });
 
 router.get('/location/:location', function(req, res) {
     Post.find({ location: req.params.location }, function(err, posts) {
         if (err) return res.status(409).send({err: err});
-        return res.status(200).send(posts)
+        return res.status(200).send(posts);
+    });
+});
+
+router.get('/game/:game', function(req, res) {
+    Post.find({ games: req.params.game }, function(err, posts) {
+        if (err) return res.status(409).send({err: err});
+        return res.status(200).send(posts);
     });
 });
 
 router.post('/join', function(req, res) {
     Post.update({ _id: req.body.id }, { $push: { attendance: req.body.user } }, function(err) {
         if (err) return res.status(400).send({err: err});
-        return res.send(200);
+        return res.sendStatus(200);
     });
 });
 
 router.post('/comment', function(req, res) {
     Post.update({ _id: req.body.id }, { $push: { comments: { username: req.body.user, comment: req.body.comment } } }, function(err) {
         if (err) return res.status(400).send({err: err});
-        return res.send(200);
+        return res.sendStatus(200);
     });
 });
 
@@ -71,13 +78,13 @@ router.post('/like', function(req, res) {
     Post.findByIdAndUpdate(
         req.body.id,
         { $inc: { likes: 1 }},
-        { new: true, safe: true, upsert: true },
+        { safe: true, upsert: true },
         function(err, post) {
             if (err) return res.status(400).send({err: err});
             User.update({ username: req.body.user }, { $push: { likes: post } }, function(err) {
                 if (err) return res.status(400).send({err: err});
             });
-            return res.send(200);
+            return res.sendStatus(200);
         }
     );
 });
@@ -86,13 +93,21 @@ router.post('/unlike', function(req, res) {
     Post.findByIdAndUpdate(
         req.body.id,
         { $inc: { likes: -1 }},
-        { new: true, safe: true, upsert: true },
+        { safe: true, upsert: true },
         function(err, post) {
             if (err) return res.status(400).send({err: err});
-            User.update({ username: req.body.user }, { $pull: { likes: post} }, function(err) {
-                if (err) return res.status(400).send({err: err});
+            User.findOne({ username: req.body.user}, function(err, user) {
+                for (var i = 0; i < user.likes.length; i++) {
+                    if (user.likes[i] == post.id) {
+                        user.likes.splice(i, 1);
+                        i--
+                    }
+                }
+                user.save(function(err) {
+                    if (err) return res.status(400).send({err: err});
+                    return res.sendStatus(200);
+                });
             });
-            return res.send(200);
         }
     );
 });
