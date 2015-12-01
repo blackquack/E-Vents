@@ -6,9 +6,11 @@ var express = require('express'),
 router.post('/register', function(req, res) {
     Post.create({ 
         name: req.body.name, 
+        description: req.body.description,
         location: req.body.location,
         date: req.body.date,
         cost: req.body.cost,
+        games: req.body.games,
         likes: 0,
         comments: [],
         creator: req.body.creator,

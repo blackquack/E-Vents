@@ -16,55 +16,45 @@
             <div class="thumbnail">
                 <img class="img-responsive" src="http://i.imgur.com/qO6cDtO.png" alt="">
                 <div class="caption-full">
-                    <h4 class="pull-right">FREE <a class="btn btn-primary">SIGN UP</a></h4>
-                    <h4><a href="#">Hearthstone Fireside Gathering</a>
+                    <h4 class="pull-right">{{cost}} 
+                    <a class="btn btn-primary">Remove Myself</a>
                     </h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+                    <h4><a href="#">{{name}}</a></h4>
+                    <p>{{description}}</p>
                 </div>
                 <div class="ratings">
                     <p>
-                        <button type="button" class="btn btn-default btn-sm">
+                        <button type="button" class="btn btn-default btn-sm" ng-click="like()">
                             <i class="fa fa-thumbs-o-up"></i> 
-                            Like
+                            {{likeText}}
                         </button>
-                        10 likes
+                        {{likes}} likes
                     </p>
                 </div>
             </div>
 
             <div class="well">
                 <h4>Attendees</h4>
-                <a href="#"><img src="http://i.imgur.com/ZVTXtFJ.png" width="40" height="40" class="img-circle"/></a>
-                <a href="#"><img src="http://i.imgur.com/ZVTXtFJ.png" width="40" height="40" class="img-circle"/></a>
-                <a href="#"><img src="http://i.imgur.com/ZVTXtFJ.png" width="40" height="40" class="img-circle"/></a>
-                <a href="#"><img src="http://i.imgur.com/ZVTXtFJ.png" width="40" height="40" class="img-circle"/></a>
+                <a href="#" ng-repeat="user in attendance">
+                    <img src="http://i.imgur.com/ZVTXtFJ.png" width="40" height="40" class="img-circle"/>
+                    {{user}}
+                </a>
             </div>
 
             <div class="well">
                 <div class="text-left">
-                <textarea class="form-control" rows="5" id="comment"></textarea>
+                    <textarea id="comment" class="form-control" rows="5" ng-model="inputComment"></textarea>
                 </div>
                 <div class="text-right">
-                    <br><a class="btn btn-success">Leave a comment</a>
+                    <br><a class="btn btn-success" ng-click="comment()">Leave a comment</a>
                 </div>
 
-                <hr>
-                
-                <div class="row">
+                <div class="row" ng-repeat="comment in comments">
+                    <hr>
                     <div class="col-md-12">
-                        <h4>Bob</h4>
-                        <span class="pull-right">12 days ago</span>
-                        <p>Great event!</p>
-                    </div>
-                </div>
-
-                <hr>
-
-                <div class="row">
-                    <div class="col-md-12">
-                        <h4>Joe</h4>
-                        <span class="pull-right">12 days ago</span>
-                        <p>Cool!</p>
+                        <h4>{{comment.username}}</h4>
+                        <span class="pull-right">-1 days ago</span>
+                        <p>{{comment.comment}}</p>
                     </div>
                 </div>
 
