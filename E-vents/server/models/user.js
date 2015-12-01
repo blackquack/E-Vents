@@ -17,20 +17,32 @@ var User = new Schema({
   provider: String,
   providerId: String,
   providerData: {},
-  
+
 });
 
-// bcrypt middleware
-User.pre('save', function(next){
-    var user = this;
-    //check if password is modified, else no need to do anything
-    if (!user.isModified('pass')) {
-       return next()
-    }
-    user.pass = bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
-    next()
-})
+User.statics.findUniqueUsername = function(username, suffix, callback) {
+	var _this = this;
+	var possibleUsername = username + (suffix || '');
 
+	_this.findOne(
+		{username: possibleUsername},
+		function(err, user) {
+			if (!err) {
+				if (!user) {
+					callback(possibleUsername);
+				}
+				else {
+					return _this.findUniqueUsername(username, (suffix || 0) + 1, callback);
+				}
+			}
+			else {
+				callback(null);
+			}
+		}
+	);
+};
+
+// add on passport-local-mongoose methods to User schema
 User.plugin(passportLocalMongoose);
 
 module.exports = mongoose.model('users', User);

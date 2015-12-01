@@ -32,7 +32,6 @@ app.config(function ($routeProvider) {
 
 app.run(function ($rootScope, $location, $route, AuthService) {
   $rootScope.$on('$routeChangeStart', function (event, next, current) {
-    console.log("in side function");
     if (next.access == undefined || 
         next.access.restricted && AuthService.getUser() === null) {
       $location.path('/home');
