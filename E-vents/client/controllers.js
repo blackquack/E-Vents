@@ -13,7 +13,6 @@ angular.module('app').controller('loginController',
         .then(function () {
 
           //update the user's location
-
           $location.path('/welcome');
         })
         // handle error
@@ -66,10 +65,12 @@ angular.module('app').controller('registerController',
       AuthService.register($scope.registerForm.email, $scope.registerForm.password)
         // handle success
         .then(function () {
+          console.log("Redirecting to login page");
           $location.path('/login');
         })
         // handle error
         .catch(function () {
+          console.log("error occur");
           $scope.error = true;
           $scope.errorMessage = 'Email already exist!';
         });
@@ -82,9 +83,8 @@ angular.module('app').controller('registerController',
 
 /* handle the welcome page */
 angular.module('app').controller('welcomeController',
-  ['$scope', '$location', 'AuthService', 
+  ['$scope', '$location', 'AuthService',
   function ($scope, $location, AuthService) {
       $scope.username = AuthService.getUser();
 
   }]);
-

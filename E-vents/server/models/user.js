@@ -1,48 +1,40 @@
 // user model
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema,
-    bcrypt = require('bcrypt-nodejs'),
-    passportLocalMongoose = require('passport-local-mongoose');
-
-
+    bcrypt = require('bcrypt-nodejs');
+    
+/*
 var User = new Schema({
-  name: String,
-  email: String,
-  username: {
-    type: String,
-    trim: true,
-    unique: true
-  },
-  password: String,
-  provider: String,
-  providerId: String,
-  providerData: {},
 
-});
+    local            : {
+        email        : String,
+        password     : String
+    },
+    twitter          : {
+        id           : String,
+        token        : String,
+        displayName  : String,
+        username     : String
+    }
 
-User.statics.findUniqueUsername = function(username, suffix, callback) {
-	var _this = this;
-	var possibleUsername = username + (suffix || '');
+});*/
 
-	_this.findOne(
-		{username: possibleUsername},
-		function(err, user) {
-			if (!err) {
-				if (!user) {
-					callback(possibleUsername);
-				}
-				else {
-					return _this.findUniqueUsername(username, (suffix || 0) + 1, callback);
-				}
-			}
-			else {
-				callback(null);
-			}
-		}
-	);
+
+var User = new mongoose.Schema({
+    username: String,
+    password: String, //hash created from password
+    created_at: {type: Date, default: Date.now}
+})
+
+
+// generating a hash
+/*User.methods.generateHash = function(password) {
+    return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
 };
 
-// add on passport-local-mongoose methods to User schema
-User.plugin(passportLocalMongoose);
-
+// checking if password is valid
+User.methods.validPassword = function(password) {
+    return bcrypt.compareSync(password, this.local.password);
+};
+*/
 module.exports = mongoose.model('users', User);
