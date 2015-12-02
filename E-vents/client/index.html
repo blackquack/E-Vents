@@ -14,7 +14,9 @@
 
 </head>
 <body>
-  <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+
+  <!-- NAVIGATION BAR -->
+  <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" ng-controller="navbarController">
     <div class="container">
       <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -43,13 +45,18 @@
             <a href="#/register"><button class="btn btn-secondary-outline" type="submit">Register</button></a>
           </form>
         </ul>
-
+        <md-button class="md-primary md-raised" ng-click="showDialog($event)">
+          Message Someone
+        </md-button>
       </div>
     </div>
   </nav>
 
-  <div class="container">
+
     <div ng-view></div>
+
+
+  <div class="container">
   </div>
 
   <!-- scripts -->
@@ -67,10 +74,13 @@
   <script src="./main.js"></script>
   <script src="./services.js"></script>
   <script src="./serv_post.js"></script>
+  <script src="./serv_user.js"></script>
   <script src="./controllers.js"></script>
   <script src="./ctrl_register_post.js"></script>
   <script src="./ctrl_show_post.js"></script>
   <script src="./ctrl_event_detail.js"></script>
+  <script src="./ctrl_navbar.js"></script>
+  <script src="./serv_user.js"></script>
 
 </body>
 </html>

@@ -37,7 +37,8 @@ app.controller('eventController',
 
 		like = function() {
 			PostingService.like.save({
-				id: $routeParams.id
+				id: $routeParams.id,
+				user: 'username'
 			})
 			$scope.likeText = 'unlike'
 			$scope.likes++
@@ -45,7 +46,8 @@ app.controller('eventController',
 
 		unlike = function() {
 			PostingService.unLike.save({
-				id: $routeParams.id
+				id: $routeParams.id,
+				user: 'username'
 			})
 			$scope.likeText = 'like'
 			$scope.likes--
