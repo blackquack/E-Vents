@@ -21,8 +21,11 @@ var User = new Schema({
 
 
 var User = new mongoose.Schema({
-    username: String,
-    password: String, //hash created from password
+    username   : String,
+    name       : String,
+    password   : String,
+    provider   : String,
+    providerId : String, //hash created from password
     created_at: {type: Date, default: Date.now}
 })
 

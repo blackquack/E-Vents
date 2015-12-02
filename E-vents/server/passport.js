@@ -1,7 +1,8 @@
 var LocalStrategy  = require("passport-local").Strategy;
 var User = require('./models/user');
 var bCrypt = require('bcrypt-nodejs');
-//var configAuth = require('./oauth_config'); // use this one for testing
+var configAuth = require('./oauth_config'); // use this one for testing
+var util = require('util');
 
 module.exports = function(passport){
 
@@ -23,7 +24,7 @@ module.exports = function(passport){
     	},
     	function(req, username, password, done) { 
     		// check in mongo if a user with username exists or not
-    		
+
     		User.findOne({ 'username' :  username }, 
     			function(err, user) {
     				// In case of any error, return using the done method
@@ -58,6 +59,7 @@ module.exports = function(passport){
      
         // asynchronous
         process.nextTick(function() {
+        	//console.log(util.inspect(req.body, false, null));
             // find a user in mongo with provided username
             User.findOne({ 'username' :  username }, function(err, user) {
             	// In case of any error, return using the done method
@@ -72,10 +74,12 @@ module.exports = function(passport){
             	} else {
             		// if there is no user, create the user
             		var newUser = new User();
-
+      
             		// set the user's local credentials
             		newUser.username = username;
+            		newUser.name = req.body.name;
             		newUser.password = createHash(password);
+            		newUser.provider = "local";
 
             		// save the user
             		newUser.save(function(err) {
@@ -93,6 +97,7 @@ module.exports = function(passport){
         });
 
     }));
+//---------------------------------
 
 //---------------------------------
 	var isValidPassword = function(user, password){

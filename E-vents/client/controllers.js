@@ -60,9 +60,11 @@ angular.module('app').controller('registerController',
         $scope.errorMessage = 'Passwords dont match!';
         return;
       };
-
+      console.log("Showing email: " + $scope.registerForm.email );
+      console.log("Showing name: " + $scope.registerForm.name);
+      console.log("Showing password: " + $scope.registerForm.password);
       // call register from service
-      AuthService.register($scope.registerForm.email, $scope.registerForm.password)
+      AuthService.register($scope.registerForm.email, $scope.registerForm.password, $scope.registerForm.name)
         // handle success
         .then(function () {
           console.log("Redirecting to login page");

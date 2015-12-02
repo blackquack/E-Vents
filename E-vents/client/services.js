@@ -21,7 +21,7 @@ angular.module('app').factory('AuthService',
           // handle success
           .success(function (data, status) {
             if(status === 200 && data.state=="success"){
-              user = data.user.username;
+              user = data.user.name;
               console.log(data);
               deferred.resolve();
             } else {
@@ -59,13 +59,13 @@ angular.module('app').factory('AuthService',
         return deferred.promise;
 
       },
-      register: function register(username, password) {
+      register: function register(username, password ,name) {
 
         // create a new instance of deferred
         var deferred = $q.defer();
-        console.log({username: username,password:password});
+        console.log({username: username,password:password, name:name});
         // send a post request to the server
-        $http.post('/auth/register', {username: username, password: password})
+        $http.post('/auth/register', {username: username, password: password, name:name})
           // handle success
           .success(function (data, status) {
             console.log(data);
