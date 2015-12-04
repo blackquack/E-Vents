@@ -12,3 +12,7 @@
 textarea {
    resize: none;
 }
+
+md-dialog {
+	padding: 30px;
+}
