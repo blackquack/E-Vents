@@ -5,6 +5,7 @@ var express = require('express'),
     bodyParser = require('body-parser'),
     expressSession = require('express-session'),
     mongoose = require('mongoose'),
+    cors = require('cors'),
     path = require('path');
 var passport = require('passport');
 
@@ -24,9 +25,11 @@ var default_route = require('./routes/index');
 var posting_route = require('./routes/api_posting');
 
 // define middleware
-app.use(express.static(path.join(__dirname, '../client')));
-app.use(logger('dev'));
 
+app.set('views', path.join(__dirname, 'view'));
+app.set('view engine', 'ejs');
+app.use(logger('dev'));
+app.set('etag', false);                                                                                                                                                                                                                                   
 app.use(bodyParser.json());
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -38,11 +41,19 @@ app.use(require('express-session')({
     saveUninitialized : false
 }));
 
+app.use(function (req, res, next) {
+
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+    res.setHeader('Access-Control-Allow-Credentials', true);
+
+    next();
+});
+app.use(express.static(path.join(__dirname, '../client/')));
 // configure passport
 app.use(passport.initialize());
 app.use(passport.session());
-
-app.use(express.static(path.join(__dirname, 'public')));
 
 
 

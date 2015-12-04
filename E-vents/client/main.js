@@ -22,14 +22,19 @@ app.config(function ($routeProvider) {
     controller: 'postingController',
     access : { restricted : true}
   })
-  .when('/welcome', {
-    templateUrl: 'views/welcome.html',
-    controller: 'welcomeController',
+  .when('/profile', {
+    templateUrl: 'views/profile.html',
+    controller: 'profileController',
     access : { restricted : true}
   })
   .otherwise({redirectTo: '/'});
 });
 
+app.config(['$httpProvider', function($httpProvider) {
+
+        $httpProvider.defaults.useXDomain = true;
+        delete $httpProvider.defaults.headers.common['X-Requested-With'];
+  }]);
 /*app.run(function ($rootScope, $location, $route, AuthService) {
   $rootScope.$on('$routeChangeStart', function (event, next, current) {
     if (next.access == undefined ||

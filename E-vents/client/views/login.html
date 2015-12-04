@@ -19,10 +19,11 @@
       </span>
     </div>
     <div class="form-group">
-      <button type="submit" class="btn btn-default" 
-              ng-disabled="form.email.$invalid || form.password.$invalid" 
+      <button type="submit" class="btn btn-default"
+              ng-disabled="form.email.$invalid || form.password.$invalid"
               ng-click="login()">Login</button>
       <a href="#/register"><button class="btn btn-default">Register</button></a>
     </div>
+    <a href='/auth/twitter'><p>Login from twitter</p></a>
   </form>
 </div>

@@ -1,7 +1,7 @@
 /* handle login and submit */
 angular.module('app').controller('loginController',
-  ['$scope', '$location', 'AuthService',
-  function ($scope, $location, AuthService) {
+  ['$scope', '$location', 'AuthService', '$route', '$window',
+  function ($scope, $location, AuthService,$route,$window) {
 
     // user clicks log in
     $scope.login = function () {
@@ -11,24 +11,51 @@ angular.module('app').controller('loginController',
       AuthService.login($scope.loginForm.email, $scope.loginForm.password)
         // handle success
         .then(function () {
-
+          console.log("normal working");
           //update the user's location
-          $location.path('/welcome');
+
+           $window.location.reload();
+           $location.path('/');
+
         })
-        // handle error
+        //
         .catch(function () {
           $scope.error = true;
           $scope.errorMessage = "Invalid email and/or password";
         });
 
       };
+      $scope.login_twitter = function () {
+
+        // call login from service
+        AuthService.login_twitter()
+          // handle success
+          .then(function () {
+            console.log("oath working");
+            //update the user's location
+            //$location.path('/');
+
+          })
+          // handle error
+          .catch(function () {
+            $scope.error = true;
+            $scope.errorMessage = "Can't connect to twitter ";
+          });
+
+        };
     }]);
 
 angular.module('app').controller('homeController',
   ['$scope', '$location', 'AuthService',
   function ($scope, $location, AuthService) {
-
+    console.log("hello");
+    console.log(AuthService.loginStatus());
+    $scope.isLogged = AuthService.loginStatus();
+    console.log(AuthService.getUserInfo());
     $scope.greet = "Home Page";
+    if ($scope.isLogged){
+      $scope.username = AuthService.getUserInfo().name;
+    }
   }]);
 /* handle logout */
 angular.module('app').controller('logoutController',
@@ -51,7 +78,6 @@ angular.module('app').controller('registerController',
   function ($scope, $location, AuthService) {
 
     $scope.register = function () {
-
       // initial values
       $scope.error = false;
 
@@ -79,14 +105,11 @@ angular.module('app').controller('registerController',
 
       };
     }]);
-
 /* handle navigaton bar on the top */
-
-
-/* handle the welcome page */
-angular.module('app').controller('welcomeController',
+angular.module('app').controller('profileController',
   ['$scope', '$location', 'AuthService',
   function ($scope, $location, AuthService) {
-      $scope.username = AuthService.getUser();
+    $scope.name = AuthService.getUserInfo().name;
+    $scope.greet = "Home Page";
 
   }]);

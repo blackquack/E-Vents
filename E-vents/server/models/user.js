@@ -24,6 +24,7 @@ var User = new mongoose.Schema({
     username   : String,
     name       : String,
     password   : String,
+    providerData : {},
     provider   : String,
     providerId : String, //hash created from password
     created_at: {type: Date, default: Date.now}

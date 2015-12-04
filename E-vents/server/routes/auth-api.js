@@ -1,21 +1,19 @@
 var express = require('express');
 var router  = express.Router();
 var User    = require('../models/user.js'); //mongo model
-
+var cors     = require('cors');
+var util   = require('util');
 
 module.exports = function(passport){
 
   router.get('/success', function(req, res){
-    console.log("This     fsdfsdfs  " + req.user);
-    console.log("-----------------------");
-    console.log("This     fsdfsdfs  " + JSON.stringify(req.body));
-    console.log("-----------------------");
-    console.log("This     fsdfsdfs  " + req);
-    res.send({state: 'success', user: req.user ? req.user : null});
+
+    //res.send({state: 'success', user: req.user ? req.user : null});
+    res.redirect('/');
   });
 
   router.get('/failure', function(req, res){
-    res.send({state: 'failure', user: null, message: "Invalid username or password"});
+    res.redirect(401,'/');
   });
 
   router.post('/register', passport.authenticate('local-signup', {
@@ -24,31 +22,33 @@ module.exports = function(passport){
   }));
 
   /* request to log in user */
-  router.post('/login', passport.authenticate('local-login', {
+  router.post('/login',passport.authenticate('local-login', {
     successRedirect: '/auth/success',
     failureRedirect: '/auth/failure'
   }));
 
 //---------------------------------------------------
-// OAuth 
+// OAuth
 
-  router.get('/twitter', passport.authenticate('twitter', { scope : 'email' }));
+  router.get('/twitter',  passport.authenticate('twitter'));
 
   // handle the callback after twitter has authenticated the user
   router.get('/twitter/callback',
       passport.authenticate('twitter', {
-          successRedirect : '/auth/success',
+          successRedirect : '/',
           failureRedirect : '/auth/failure'
+
       })
   );
 
   /* request to log out user */
   router.get('/logout', function(req, res) {
+    console.log(util.inspect(req.session,null,false));
+    req.session.destroy();
     req.logout();
-    res.status(200).json({status: 'logout successfully!'})
+    res.redirect('/');
   });
 
   return router;
 
 }
-

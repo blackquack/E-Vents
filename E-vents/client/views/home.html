@@ -1,7 +1,13 @@
 <div>
 	<h1>Hello</h1>
 	<p>{{greet}}</p>
+	<div ng-show='isLogged'>
+	<p >Welcome,{{username}}</p>
+	<p><a href="#/profile">profile</a></p>
+	<p><a href="auth/logout">logout</a></p>
+	</div>
+	<div ng-hide='isLogged'>
 	<p><a href="#/login">login</a></p>
 	<p><a href="#/register">register</a></p>
-
+	</div>
 </div>
