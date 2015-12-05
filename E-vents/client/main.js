@@ -24,5 +24,9 @@ app.config(function ($routeProvider) {
       templateUrl: 'views/event.html',   
       controller: 'eventController'
     })
+    .when('/messages', {
+      templateUrl: 'views/messages.html',
+      controller: 'messagingController'
+    })
     .otherwise({redirectTo: '/'});
 });

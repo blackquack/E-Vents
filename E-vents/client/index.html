@@ -45,9 +45,11 @@
             <a href="#/register"><button class="btn btn-secondary-outline" type="submit">Register</button></a>
           </form>
         </ul>
-        <md-button class="md-primary md-raised" ng-click="showDialog($event)">
-          Message Someone
+        <a href="#/messages">
+        <md-button class="md-fab md-primary md-hue-2">
+          <i class="fa fa-envelope-o"></i>
         </md-button>
+        </a>
       </div>
     </div>
   </nav>
@@ -81,6 +83,7 @@
   <script src="./ctrl_show_post.js"></script>
   <script src="./ctrl_event_detail.js"></script>
   <script src="./ctrl_navbar.js"></script>
+  <script src="./ctrl_msgs.js"></script>
   <script src="./serv_user.js"></script>
 
 </body>
