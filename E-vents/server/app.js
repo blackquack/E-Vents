@@ -42,8 +42,8 @@ app.use(require('express-session')({
     saveUninitialized : false
 }));
 
-
 app.use(express.static(path.join(__dirname, '../client/')));
+
 // configure passport
 app.use(passport.initialize());
 app.use(passport.session());
