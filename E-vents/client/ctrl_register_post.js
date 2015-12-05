@@ -6,7 +6,7 @@ app.controller('registerPostingController',
 
         /* CHECK IF LOGGED IN */
         if (AuthService.getUser() == null)
-            $location.path('/');
+            $location.path('/register');
 
         /* GAMES */
         $scope.games = [
