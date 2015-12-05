@@ -8,7 +8,6 @@ var PostSchema = new mongoose.Schema({
     cost: Number,
     games: [String],
     likes: Number,
-    game: String,
     comments: [{username:String, comment:String}],
     creator: String,
     attendance: [String]
