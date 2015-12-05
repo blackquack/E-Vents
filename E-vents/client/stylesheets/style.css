@@ -1,54 +1,3 @@
-.navbar {
-	margin-top: 20px;
-	font-size: 20px;
-}
-.navbar a:hover {
-	cursor: pointer;
-	background-color: grey;
-	text-decoration: none;
-}
-
-li:hover {
-	cursor: pointer;
-	background-color: grey;
-	text-decoration: none;
-}
-
-tr:hover {
-	cursor: pointer;
-}
-
-thead tr:hover {
-	cursor: text;
-}
-
-h1 {
-	margin-bottom: 40px;
-}
-
-.control-label{
-	font-size: 20px;
-}
-
-a:hover {
-	cursor: pointer;
-	text-decoration: none;
-}
-
-label {
-	font-size: 20px;
-}
-
-textarea {
-	resize:none;
-	height: 200px;
-	width: 4em;
-}
-
-.navbar-brand {
-	font-style: bold;
-	font-size: 2em;
-}
 body {
 	padding-top:70px;
 	width: 100%;
@@ -158,4 +107,28 @@ body {
   padding: 20px;
   background: #fff;
   min-height: 460px;
+}
+
+.form-group
+	textarea {
+	    width: 350px;
+	    height: 200px;
+	}
+
+.form-group {
+	font-size: 1.2em;
+	font-weight: bold;
+}
+
+textarea {
+   resize: none;
+}
+
+md-dialog {
+	padding: 30px;
+}
+
+#name{
+	 color: white;
+	 display: inline-block;
 }

@@ -6,20 +6,17 @@ router.get('/', function(req, res, next) {
   //console.log(req.user);
   console.log("=====");
   if (req.user){
-    console.log(req.user.name);
+    console.log("User loged in : "+req.user.name);
   }
   else{
     console.log('no user logged in');
   }
   console.log("======");
-  console.log(req.fresh);
   res.render("index",{
-    	title: 'abc',
+      title : 'testing',
     	user: JSON.stringify(req.user),
-      test : 'before'
     });
 
-  console.log('data sent');
 });
 
 
