@@ -25,42 +25,61 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#/">Home</a>
+                <a class="navbar-brand" href="#/"><h5>Home</h5></a>
             </div>
             <div class="left" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="#/about">About E-Vents</a>
+                        <a href="#/about"><h5>About E-Vents</h5></a>
                     </li>
                     <li>
-                        <a href="#/createEvent">Host an E-Vent</a>
+                        <a href="#/createEvent"><h5>Host an E-Vent</h5></a>
                     </li>
                     <li>
-                        <a href="#/eventFinder">Local E-Vent Finder</a>
+                        <a href="#/eventFinder"><h5>Local E-Vent Finder</h5></a>
                     </li>
-                    <div ng-controller='loginController'>
-                        <form class="form-inline navbar-form pull-right" >
-                            <div ng-hide='isLogged'>
-                                <input class="form-control" ng-model="loginForm.email" required type="text" width="60px" placeholder="Username" />
-                                <input class="form-control" ng-model="loginForm.password" required type="password" placeholder="Password" />
-                                <button class="btn btn-secondary-outline" type="submit" ng-click="login()">Log in</button>
-                                <a href="#/register"><button class="btn btn-secondary-outline" type="submit">Register</button></a>
-                                <div>
-                                    <a href="/auth/twitter"><p id="name">Login with Twitter</p></a>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div ng-show='isLogged' ng-controller='logoutController'>
-                        <p id='name'>{{username}}</p>
-                        <button class="btn btn-secondary-outline"   ng-click="logout()">Log out</button>
-                    </div>
                 </ul>
-                <a href="#/messages" ng-show="isLogged" ng-controller='logoutController'>
-                <md-button class="md-fab md-primary md-hue-2">
-                  <i class="fa fa-envelope-o"></i>
-                </md-button>
-                </a>
+                <div class="pull-right" ng-controller='loginController'>
+                    <form class="form-inline navbar-form">
+                        <div ng-hide='isLogged'>
+                            <input class="form-control form-inline" ng-model="loginForm.email" required type="text" width="60px" placeholder="Username" />
+                            <input class="form-control" ng-model="loginForm.password" required type="password" placeholder="Password" />
+                            <md-button class="md-fab md-mini md-primary" ng-click="login()">
+                                <md-tooltip md-visible="demo.showTooltip" md-direction="{{demo.tipDirection}}">
+                                    Log In
+                                </md-tooltip>
+                                <i class="fa fa-sign-out"></i>
+                            </md-button>
+                            <md-button class="md-fab md-mini md-primary " href="/auth/twitter">
+                                <md-tooltip md-visible="demo.showTooltip" md-direction="{{demo.tipDirection}}">
+                                    Twitter Login
+                                </md-tooltip>
+                                <i class="fa fa-twitter"></i>
+                            </md-button>
+                            <a href="#/register"><button class="btn btn-secondary-outline" type="submit">Register</button></a>
+                    </form>
+                </div>
+                <div class="pull-right" ng-show='isLogged' ng-controller='logoutController'>
+                        <!-- <p id='name'>{{username}}</p> -->
+                    <md-button class="md-fab md-mini md-primary" href="#/user/username">
+                        <md-tooltip md-visible="demo.showTooltip" md-direction="{{demo.tipDirection}}">
+                            My Profile
+                        </md-tooltip>
+                        <i class="fa fa-user"></i>
+                    </md-button>
+                    <md-button class="md-fab md-mini md-primary" href="#/messages">
+                        <md-tooltip md-visible="demo.showTooltip" md-direction="{{demo.tipDirection}}">
+                            My Messages
+                        </md-tooltip>
+                        <i class="fa fa-envelope-o"></i>
+                    </md-button>
+                    <md-button class="md-fab md-mini md-primary" ng-click="logout()">
+                        <md-tooltip md-visible="demo.showTooltip" md-direction="{{demo.tipDirection}}">
+                            Sign Out
+                        </md-tooltip>
+                        <i class="fa fa-sign-out"></i>
+                    </md-button>
+                </div>
             </div>
         </div>
     </nav>

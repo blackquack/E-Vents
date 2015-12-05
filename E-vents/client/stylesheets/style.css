@@ -147,5 +147,18 @@ body {
 }
 
 #content {
-	padding-top: 80px;
+	padding-top: 50px;
+}
+
+/* Disable hover links*/
+a,a:hover,a:click, a:visited{
+  border:none;
+  outline:none;
+  text-decoration:none;
+  color:inherit;
+}
+
+.navbar{
+margin-left:-20px;
+margin-right:-20px;
 }
