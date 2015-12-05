@@ -117,8 +117,9 @@ function ($q, $timeout, $http,$window,$interval,resources,$route) {
             $http.post('/auth/register', {username: username, password: password, name:name})
             // handle success
             .success(function (data, status) {
+                console.log(data);
                 console.log(status);
-                if(status === 200){
+                if(status === 200 && data.state== "success"){
                     deferred.resolve();
                 } else {
                     deferred.reject();
