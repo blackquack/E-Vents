@@ -16,3 +16,7 @@ textarea {
 md-dialog {
 	padding: 30px;
 }
+
+h1 {
+	padding-bottom: 20px; 
+}
