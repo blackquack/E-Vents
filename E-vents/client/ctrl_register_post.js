@@ -10,10 +10,10 @@ app.controller('registerPostingController',
 
         /* GAMES */
         $scope.games = [
-            'Dota2',
-            'LoL',
+            'DOTA2',
+            'League of Legends',
             'CS:GO',
-            'HearthStone'
+            'Hearthstone'
         ];
 
         /* DATE */

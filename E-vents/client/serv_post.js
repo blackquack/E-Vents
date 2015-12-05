@@ -6,6 +6,7 @@ angular.module('app').factory('PostingService',
 		postID: $resource('/api/post/:id', {id: '@id'}),
 		like: $resource('/api/post/like'),
 		unLike: $resource('/api/post/unlike'),
-		comment: $resource('/api/post/comment')
+		comment: $resource('/api/post/comment'),
+		game: $resource('/api/game/:game', {game: '@game'})
 	})
 }])
