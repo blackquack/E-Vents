@@ -1,8 +1,8 @@
 var app = angular.module('app');
 
 app.controller('registerPostingController',
-    ['$scope', 'PostingService', '$location', '$AuthService',
-    function ($scope, PostingService, $location, $AuthService) {
+    ['$scope', 'PostingService', '$location', 'AuthService',
+    function ($scope, PostingService, $location, AuthService) {
 
         /* GAMES */
         $scope.games = [
@@ -54,7 +54,7 @@ app.controller('registerPostingController',
                 date: $scope.date,
                 cost:$scope.cost,
                 games: $scope.selected,
-                creator: AuthService.getUserInfo._id;
+                creator: AuthService.getUserInfo._id
             })
 
             $location.path('/');
