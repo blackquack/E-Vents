@@ -46,7 +46,7 @@
                                 <button class="btn btn-secondary-outline" type="submit" ng-click="login()">Log in</button>
                                 <a href="#/register"><button class="btn btn-secondary-outline" type="submit">Register</button></a>
                                 <div>
-                                    <a href="/auth/twitter"><p id=name >Login with Twitter</p></a>
+                                    <a href="/auth/twitter"><p id="name">Login with Twitter</p></a>
                                 </div>
                             </div>
                         </form>
@@ -56,7 +56,7 @@
                         <button class="btn btn-secondary-outline"   ng-click="logout()">Log out</button>
                     </div>
                 </ul>
-                <a href="#/messages">
+                <a href="#/messages" ng-show="isLogged" ng-controller='logoutController'>
                 <md-button class="md-fab md-primary md-hue-2">
                   <i class="fa fa-envelope-o"></i>
                 </md-button>
@@ -89,9 +89,10 @@
     <script src="./serv_user.js"></script>
     <script src="./controllers.js"></script>
     <script src="./ctrl_register_post.js"></script>
-    <script src="./ctrl_show_post.js"></script>
+    <script src="./ctrl_show_allEvents.js"></script>
+    <script src="./ctrl_query_game.js"></script>
     <script src="./ctrl_event_detail.js"></script>
+    <script src="./ctrl_msgs.js"></script>
     <script src="./ctrl_navbar.js"></script>
-    <script src="./serv_user.js"></script>
 </body>
 </html>
