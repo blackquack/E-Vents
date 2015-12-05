@@ -5,46 +5,51 @@ var express = require('express'),
     bodyParser = require('body-parser'),
     expressSession = require('express-session'),
     mongoose = require('mongoose'),
-    hash = require('bcrypt-nodejs'),
-    path = require('path'),
-    passport = require('passport'),
-    localStrategy = require('passport-local').Strategy;
+    cors = require('cors'),
+    path = require('path');
+var passport = require('passport');
 
 // mongoose
-mongoose.connect('mongodb://localhost/csc309-a5');
+mongoose.connect('mongodb://localhost/E-vent-DEVELOPMENT');
 
 // user schema/model
 var User = require('./models/user.js');
 
 // create instance of express
 var app = express();
-app.enable('trust proxy');
-
+//app.enable('trust proxy');
+require('./passport')(passport);
 // require routes
-var auth_routes = require('./routes/auth-api');
+var auth_routes = require('./routes/auth-api')(passport);
 var default_route = require('./routes/index');
 var posting_route = require('./routes/api_posting');
 var user_route = require('./routes/api_users');
 
 // define middleware
-app.use(express.static(path.join(__dirname, '../client')));
+
+app.set('views', path.join(__dirname, 'view'));
+app.set('view engine', 'ejs');
 app.use(logger('dev'));
+app.set('etag', false);
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+
+app.use(bodyParser.urlencoded({ extended: true }));
+
 app.use(cookieParser());
 app.use(require('express-session')({
     secret: 'keyboard cat',
-    resave: false,
-    saveUninitialized: false
+    resave : false,
+    saveUninitialized : false
 }));
+
+
+app.use(express.static(path.join(__dirname, '../client/')));
+// configure passport
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(express.static(path.join(__dirname, 'public')));
 
-// configure passport
-passport.use(new localStrategy(User.authenticate()));
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
+
+
 
 // routes
 app.use('/auth/', auth_routes);

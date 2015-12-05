@@ -14,4 +14,8 @@ var PostSchema = new mongoose.Schema({
     attendance: [String]
 });
 
+<<<<<<< HEAD
 module.exports = mongoose.model('Post', PostSchema);
+=======
+module.exports = mongoose.model('Post', PostSchema);
+>>>>>>> a903f0e4a4dfe1f79992c8beac245e332f62c507

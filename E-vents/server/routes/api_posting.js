@@ -4,8 +4,13 @@ var express = require('express'),
     User = require('../models/user.js');
 
 router.post('/register', function(req, res) {
+<<<<<<< HEAD
     Post.create({ 
         name: req.body.name, 
+=======
+    Post.create({
+        name: req.body.name,
+>>>>>>> a903f0e4a4dfe1f79992c8beac245e332f62c507
         description: req.body.description,
         location: req.body.location,
         date: req.body.date,
@@ -16,7 +21,11 @@ router.post('/register', function(req, res) {
         creator: req.body.creator,
         attendance: [req.body.creator]
     }, function(err, post) {
+<<<<<<< HEAD
         if (err) return res.status(409).send({err: err}); 
+=======
+        if (err) return res.status(409).send({err: err});
+>>>>>>> a903f0e4a4dfe1f79992c8beac245e332f62c507
         User.update({ username: req.body.creator }, { $push: { attendance: post.id } }, function(err) {
             if (err) return res.status(400).send({err: err});
             return res.status(200).send(post);
@@ -27,7 +36,7 @@ router.post('/register', function(req, res) {
 
 router.get('/all', function(req, res) {
     Post.find({}, function(err, posts) {
-        if (err) return res.status(409).send({err: err}); 
+        if (err) return res.status(409).send({err: err});
         return res.status(200).send(posts);
     })
 });
@@ -112,4 +121,8 @@ router.post('/unlike', function(req, res) {
     );
 });
 
+<<<<<<< HEAD
 module.exports = router;
+=======
+module.exports = router;
+>>>>>>> a903f0e4a4dfe1f79992c8beac245e332f62c507

@@ -1,1 +1,1 @@
-# Team Africa's second latest project
+# Team Africa

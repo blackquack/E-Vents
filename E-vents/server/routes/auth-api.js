@@ -1,75 +1,54 @@
-var express = require('express'),
-    router = express.Router(),
-    passport = require('passport');
-    User = require('../models/user.js'), //mongo model
-    path = require('path');
+var express = require('express');
+var router  = express.Router();
+var User    = require('../models/user.js'); //mongo model
+var cors     = require('cors');
+var util   = require('util');
 
-/* request to register a user */
-router.post('/register', function(req, res) {
-  var userLevel = 'regular';
+module.exports = function(passport){
 
-  User.count({}, function(err, count){
-    // super admin if first one
-    if (count < 1) userLevel = 's.admin'
+  router.get('/success', function(req, res){
 
-    // get ip address
-    var ip = req.headers['x-forwarded-for'] || 
-         req.connection.remoteAddress || 
-         req.socket.remoteAddress ||
-         req.connection.socket.remoteAddress;
-
-    User.register(new User({ 
-      username: req.body.username, 
-      displayName: "", 
-      description: "", type: userLevel,
-      imageLocation: path.join(__dirname, '../images/default', 'default.gif'),
-      pages: {welcome: 0, profile:0, edit:0},
-      ipAddress: ip }), 
-
-      req.body.password, function(err, account) {
-        if (err) {
-          return res.status(409).json({err: err})
-        }
-        passport.authenticate('local')(req, res, function () {
-          return res.status(200).json({status: 'Registration successful!'})
-        });
-    });
-
+    //res.send({state: 'success', user: req.user ? req.user : null});
+    res.redirect('/');
   });
-});
 
-/* request to log in user */
-router.post('/login', function(req, res, next) {
-  req.isAuthenticated
-  passport.authenticate('local', function(err, user, info) {
-    if (err) { return next(err) }
-    if (!user) {
-      return res.status(401).json({err: info})
-    }
-    req.logIn(user, function(err) {
-      if (err) {
-        return res.status(500).json({err: 'Could not log in user'})
-      }
-      res.status(200).json({status: 'Login successful!'})
-    });
-  })(req, res, next);
-});
-
-/* request to log out user */
-router.get('/logout', function(req, res) {
-  req.logout();
-  res.status(200).json({status: 'Bye!'})
-});
-
-/* request to change password */
-router.post('/changepass' , function (req, res, next) {
-  User.findOne({ username: req.body.username }, function(err, user) {
-    user.setPassword(req.body.password, function() {
-          user.save();
-    })
-    if (err) { return res.status(404).json({status: 'User not found!'}) }
+  router.get('/failure', function(req, res){
+    res.redirect(401,'/');
   });
-  res.status(200).json({status: 'Successfully changed password.'})
-});
 
-module.exports = router;
+  router.post('/register', passport.authenticate('local-signup', {
+      successRedirect : '/auth/success', // redirect to the secure profile section
+      failureRedirect : '/auth/failure' // redirect back to the signup page if there is an error
+  }));
+
+  /* request to log in user */
+  router.post('/login',passport.authenticate('local-login', {
+    successRedirect: '/auth/success',
+    failureRedirect: '/auth/failure'
+  }));
+
+//---------------------------------------------------
+// OAuth
+
+  router.get('/twitter',  passport.authenticate('twitter'));
+
+  // handle the callback after twitter has authenticated the user
+  router.get('/twitter/callback',
+      passport.authenticate('twitter', {
+          successRedirect : '/',
+          failureRedirect : '/auth/failure'
+
+      })
+  );
+
+  /* request to log out user */
+  router.get('/logout', function(req, res) {
+    console.log(util.inspect(req.session,null,false));
+    req.session.destroy();
+    req.logout();
+    res.redirect('/');
+  });
+
+  return router;
+
+}
