@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-var PORT = 8080;
+var PORT = 3000;
 var debug = require('debug')('passport-mongo'),
     app = require('./server/app');
 
