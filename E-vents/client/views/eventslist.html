@@ -15,12 +15,12 @@
         <div class="col-md-9">
             <div ng-repeat="event in allEvents">
                 <div class="thumbnail">
-                    <img class="img-responsive" src="http://i.imgur.com/qO6cDtO.png" alt="">
+                    <a ng-href="#/event/{{event._id}}"><img class="img-responsive" src="http://i.imgur.com/qO6cDtO.png" alt=""></a>
                     <div class="caption-full">
-                        <h4 class="pull-right">{{event.cost}} 
+                        <h4 class="pull-right">${{event.cost}}
                             <a class="btn btn-primary">Remove Myself</a>
                         </h4>
-                        <h4><a href="#">{{event.name}}</a></h4>
+                        <h4><a ng-href="#/event/{{event._id}}">{{event.name}}</a></h4>
                         <p>{{event.description}}</p>
                     </div>
                     <div class="ratings">
