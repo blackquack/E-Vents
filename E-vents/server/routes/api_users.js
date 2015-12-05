@@ -51,7 +51,7 @@ router.post('/message', function(req, res) {
         if (err) return res.status(409).send({err: err});
         User.update({ username: req.body.to }, { $push: { messages: message.id } }, function(err) {
             if (err) return res.status(400).send({err: err});
-            return res.send(200);
+            return res.status(200).send(message);
         });
     });
 });
