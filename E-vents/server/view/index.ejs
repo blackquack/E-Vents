@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.0.0-rc5/angular-material.min.css">
     <link rel="stylesheet" href="./stylesheets/style.css">
     <link rel="stylesheet" href="./stylesheets/frontstyle.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
 
 </head>
 <body ng-app="app">
@@ -54,9 +56,11 @@
                         <button class="btn btn-secondary-outline"   ng-click="logout()">Log out</button>
                     </div>
                 </ul>
-                <md-button class="md-primary md-raised" ng-click="showDialog($event)">
-                    Message Someone
+                <a href="#/messages">
+                <md-button class="md-fab md-primary md-hue-2">
+                  <i class="fa fa-envelope-o"></i>
                 </md-button>
+                </a>
             </div>
         </div>
     </nav>
