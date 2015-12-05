@@ -5,7 +5,7 @@ app.controller('registerPostingController',
     function ($scope, PostingService, $location, AuthService) {
 
         /* CHECK IF LOGGED IN */
-        if (AuthService.getUser() == null)
+        if (AuthService.loginStatus() == null)
             $location.path('/register');
 
         /* GAMES */

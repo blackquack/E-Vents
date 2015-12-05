@@ -2,10 +2,10 @@ var app = angular.module('app');
 
 /* CONTROLLER APPLIES TO ALL PAGES */
 app.controller('navbarController',
-	['$scope',
-	function ($scope) {
+	['$scope', 'AuthService',
+	function ($scope, AuthService) {
 
-		USER = 'username';
+		$scope.isLogged = AuthService.loginStatus();
   
 	}
 ]);
