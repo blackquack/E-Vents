@@ -38,6 +38,9 @@
                     <li>
                         <a href="#/eventFinder">Local E-Vent Finder</a>
                     </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
                     <div ng-controller='loginController'>
                         <form class="form-inline navbar-form pull-right" >
                             <div ng-hide='isLogged'>
@@ -46,20 +49,21 @@
                                 <button class="btn btn-secondary-outline" type="submit" ng-click="login()">Log in</button>
                                 <a href="#/register"><button class="btn btn-secondary-outline" type="submit">Register</button></a>
                                 <div>
-                                    <a href="/auth/twitter"><p id="name">Login with Twitter</p></a>
+                                    <a href="/auth/twitter"><p id="namet">Login with Twitter</p></a>
                                 </div>
                             </div>
                         </form>
                     </div>
-                    <div ng-show='isLogged' ng-controller='logoutController'>
+                    </li>
+                    <li>
+                    <div class="pull-right" ng-show='isLogged' ng-controller='logoutController'>
                         <p id='name'>{{username}}</p>
-                        <button class="btn btn-secondary-outline"   ng-click="logout()">Log out</button>
+                        <button id="logout" class="btn btn-secondary-outline" ng-click="logout()">Log out</button>
                     </div>
+                    </li>
                 </ul>
                 <a href="#/messages" ng-show="isLogged" ng-controller='logoutController'>
-                <md-button class="md-fab md-primary md-hue-2">
-                  <i class="fa fa-envelope-o"></i>
-                </md-button>
+                    <i class="fa fa-envelope-o fa-2x"></i>
                 </a>
             </div>
         </div>
