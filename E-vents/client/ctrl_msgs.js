@@ -4,23 +4,24 @@ app.controller('messagingController',
 	['$scope', '$mdDialog', '$mdMedia', 'UserService', 'AuthService',
   	function ($scope, $mdDialog, $mdMedia, UserService, AuthService) {
 
-  		/* SET ALL THE MESSAGES */
-  		UserService.userMessages.get({user: AuthService.getUserInfo().username},
-  		function(msgObject) {
-  			console.log(msgObject)
-  		});
 
   		/* FUNCTION TO SET MESSAGES */
-  		setMessages = function(msgs) {
-
+  		setMessages = function() {
+  			UserService.userMessages.get({user: AuthService.getUserInfo().username},
+	  		function(msgObject) {
+	  			console.log(msgObject);
+	  			$scope.msgs = msgObject.messages;
+	  		});
   		}
+
+  		/* SET ALL THE MESSAGES */
+  		setMessages();
 		
-  		$scope.users = [1,2,4,5,6,7,8];
 
-
+  		/* SET THE MESSAGE BUTTON */
 	    $scope.showDialog = showDialog;
 
-	    /* MESSAGE SOMEONE BUTTON */
+	    /* MESSAGE SOMEONE BUTTON DIALOG FUNCTIONALIY*/
 		function showDialog($event) {
 	       	var parentEl = angular.element(document.body);
 	       	$mdDialog.show({
@@ -41,6 +42,7 @@ app.controller('messagingController',
 
 	        		sendMessage($scope.receiver, $scope.content)
 	        		$mdDialog.hide();
+	        		setMessages();
 	        	}
 
 
