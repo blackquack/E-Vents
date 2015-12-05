@@ -17,7 +17,7 @@
           <div class="form-group">
               <label class="control-label md-headline">Event Description:</label>
                 <div class="form-control-static">
-                <textarea placeholder="500 characters max." maxlength="500" ng-model="description"></textarea>
+                <textarea placeholder="Maximum 500 characters" maxlength="500" ng-model="description"></textarea>
               </div>
           </div>
 
@@ -33,12 +33,12 @@
               <label class="control-label md-headline">Location</label>
               <div class="form-control-static">
                 <label class="control-label">Address</label>
-                <input type="text" ng-model="address">
+                <input class="pull-right" type="text" ng-model="address">
                 <span style="color:red" ng-show="form.address">required</span>
 
-                <br>
+                <br><br>
                 <label class="control-label">City</label>
-                <input type="text" ng-model="city">
+                <input class="pull-right" type="text" ng-model="city">
                 <span style="color:red" ng-show="form.city">required</span>
 
               </div>
@@ -66,11 +66,10 @@
 
         <!-- GAMES -->
         <div class="form-group">
-          <label class="control-label md-headline">GAMES</label>
+          <label class="control-label md-headline">Games</label>
           <div flex="50" ng-repeat="game in games">
             <md-checkbox ng-checked="exists(game, selected)" ng-click="toggle(game, selected)">
               {{ game }}
-
             </md-checkbox>
           </div>
         </div>

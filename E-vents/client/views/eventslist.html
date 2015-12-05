@@ -5,53 +5,36 @@
         <div class="col-md-3">
             <p class="lead">Games:</p>
             <div class="list-group">
-                <a href="#" class="list-group-item">League of Legends</a>
-                <a href="#" class="list-group-item">DOTA 2</a>
-                <a href="#" class="list-group-item">Hearthstone</a>
-                <a href="#" class="list-group-item">All Games</a>
+                <a href="#/game/leagueoflegends" class="list-group-item">League of Legends</a>
+                <a href="#/game/dota2" class="list-group-item">DOTA 2</a>
+                <a href="#/game/hearthstone" class="list-group-item">Hearthstone</a>
+                <a href="#/events" class="list-group-item">All Games</a>
             </div>
         </div>
 
         <div class="col-md-9">
-            <div class="thumbnail">
-                <img class="img-responsive" src="http://i.imgur.com/qO6cDtO.png" alt="">
-                <div class="caption-full">
-                    <h4 class="pull-right">FREE <a class="btn btn-primary">SIGN UP</a></h4>
-                    <h4><a href="#">Hearthstone Fireside Gathering</a>
-                    </h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
-                </div>
-                <div class="ratings">
-                    <p class="pull-right">2 comments</p>
-                    <p>
-                        <button type="button" class="btn btn-default btn-sm">
-                            <i class="fa fa-thumbs-o-up"></i> 
-                            Like
-                        </button>
-                        10 likes
-                    </p>
-                </div>
-            </div>
-            <div class="thumbnail">
-                <img class="img-responsive" src="./banner.png" alt="">
-                <div class="caption-full">
-                    <h4 class="pull-right">$7.00 <a class="btn btn-primary">SIGN UP</a></h4>
-                    <h4><a href="#">League of Legends LAN Tournament</a>
-                    </h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
-                </div>
-                <div class="ratings">
-                    <p class="pull-right">2 comments</p>
-                    <p>
-                        <button type="button" class="btn btn-default btn-sm">
-                            <i class="fa fa-thumbs-o-up"></i> 
-                            Like
-                        </button>
-                      10 likes
-                  </p>
+            <div ng-repeat="event in allEvents">
+                <div class="thumbnail">
+                    <img class="img-responsive" src="http://i.imgur.com/qO6cDtO.png" alt="">
+                    <div class="caption-full">
+                        <h4 class="pull-right">{{event.cost}} 
+                            <a class="btn btn-primary">Remove Myself</a>
+                        </h4>
+                        <h4><a href="#">{{event.name}}</a></h4>
+                        <p>{{event.description}}</p>
+                    </div>
+                    <div class="ratings">
+                        <p>
+                            <button type="button" class="btn btn-default btn-sm" ng-click="like()">
+                                <i class="fa fa-thumbs-o-up"></i> 
+                                {{event.likeText}}
+                            </button>
+                            {{event.likes}} likes
+                        </p>
+                    </div>
                 </div>
             </div>
-            
         </div>
+
     </div>
 </div>
