@@ -1,24 +1,20 @@
 var app = angular.module('app');
 
 app.controller('messagingController',
-	['$scope', '$mdDialog', '$mdMedia', 'UserService',
-  	function ($scope, $mdDialog, $mdMedia, UserService) {
-
-  		USER =  "username";
+	['$scope', '$mdDialog', '$mdMedia', 'UserService', 'AuthService',
+  	function ($scope, $mdDialog, $mdMedia, UserService, AuthService) {
 
   		/* SET ALL THE MESSAGES */
-  		UserService.userMessages.query({id: USER},
-  		function(result) {
-  			console.log(result)
+  		UserService.userMessages.get({user: AuthService.getUserInfo().username},
+  		function(msgObject) {
+  			console.log(msgObject)
   		});
+
+  		/* FUNCTION TO SET MESSAGES */
+  		setMessages = function(msgs) {
+
+  		}
 		
-
-		setMessages = function () {
-
-		}
-
-
-		USER = 'username';
 
 
 
@@ -54,7 +50,7 @@ app.controller('messagingController',
 	    /* SEND BUTTON FUNCTION  */
 	    sendMessage = function(receiver, content) {
 	    	UserService.message.save({
-	    		from: USER,
+	    		from: AuthService.getUserInfo().username,
 	    		to: receiver,
 	    		date: new Date(),
 	    		message: content
