@@ -29,6 +29,24 @@
 
 /* END Post register */
 
+i {
+  padding-top: 5px;
+  font-size: 5px;
+}
+
+#logout {
+  margin-bottom: 6px;
+}
+
+.navbar {
+  font-size: 17px;
+  font-weight: bold;
+}
+
+.navbar-brand {
+  font-size: 25px;
+}
+
 .form-group 
 body {
 	padding-top: 70px;
@@ -144,6 +162,16 @@ body {
 #name{
 	 color: white;
 	 display: inline-block;
+   margin-top: 5px;
+    margin-bottom: 0px;
+  padding-bottom: 0px;
+  font-size: 26px;
+}
+
+#namet{
+   color: white;
+   display: inline-block;
+  font-size: 10px;
 }
 
 #content {
