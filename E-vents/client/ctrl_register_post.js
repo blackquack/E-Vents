@@ -4,6 +4,10 @@ app.controller('registerPostingController',
     ['$scope', 'PostingService', '$location', 'AuthService',
     function ($scope, PostingService, $location, AuthService) {
 
+        /* CHECK IF LOGGED IN */
+        if (AuthService.getUser() == null)
+            $location.path('/register');
+
         /* GAMES */
         $scope.games = [
             'Dota2',

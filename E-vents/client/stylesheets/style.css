@@ -22,6 +22,11 @@
   h1 {
     padding-bottom: 20px; 
   }
+
+#locOff {
+  margin-left: 27px;
+}
+
 /* END Post register */
 
 .form-group 
