@@ -155,6 +155,7 @@ angular.module('app').controller('dashboardController',
   ['$scope', '$location', 'AuthService', 'UserService', '$resource',
   function ($scope, $location, AuthService,UserService,$resource ) {
       $scope.test = false;
+      $scope.name = AuthService.getUserInfo().name;
       console.log($scope.test);
       console.log(AuthService.getUserInfo().username);
     // get the information for all users
