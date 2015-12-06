@@ -24,6 +24,15 @@ app.config(function ($routeProvider) {
         templateUrl: 'views/event.html',
         controller: 'eventController'
     })
+    .when('/myprofile/', {
+        templateUrl: 'views/myprofile.html',
+        controller: 'myprofileController',
+
+    })
+    .when('/user/:username', {
+        templateUrl: 'views/profile.html',
+        controller: 'profileController',
+    })
     .when('/messages', {
       templateUrl: 'views/messages.html',
       controller: 'messagingController'

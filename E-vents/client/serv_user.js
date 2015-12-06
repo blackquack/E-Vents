@@ -5,5 +5,6 @@ angular.module('app').factory('UserService',
 		userMessages: 	$resource('/api/user/:user/messages', {user: '@user'}),
 		getUser: 		$resource('/api/user/:user', {user: '@user'}),
 		getAllUsers:    $resource('/api/user/all')
+		getEvents:		$resource('/api/user/:user/attendance', {user: '@user'})
 	})
 }])
