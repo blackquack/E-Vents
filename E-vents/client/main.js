@@ -33,13 +33,9 @@ app.config(function ($routeProvider) {
       templateUrl: 'views/messages.html',
       controller: 'messagingController'
     })
-    .when('/events', {
+    .when('/events/:type', {
         templateUrl: 'views/eventslist.html',
         controller: 'alleventsController'
-    })
-    .when('/game/:game', {
-        templateUrl: 'views/eventslist.html',
-        controller: 'querygameController'
     })
     .otherwise({redirectTo: '/'});
 });
