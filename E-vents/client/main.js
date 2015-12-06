@@ -24,11 +24,6 @@ app.config(function ($routeProvider) {
         templateUrl: 'views/event.html',
         controller: 'eventController'
     })
-    .when('/profile', {
-        templateUrl: 'views/profile.html',
-        controller: 'profileController',
-
-    })
     .when('/messages', {
       templateUrl: 'views/messages.html',
       controller: 'messagingController'
