@@ -71,49 +71,82 @@ router.post('/join', function(req, res) {
 });
 
 router.post('/comment', function(req, res) {
-    Post.update({ _id: req.body.id }, { $push: { comments: { username: req.body.user, comment: req.body.comment } } }, function(err) {
+    Post.update({ _id: req.body.id }, { $addToSet: { comments: { username: req.body.user, comment: req.body.comment } } }, function(err) {
         if (err) return res.status(400).send({err: err});
         return res.sendStatus(200);
     });
 });
 
 router.post('/like', function(req, res) {
-    Post.findByIdAndUpdate(
-        req.body.id,
-        { $inc: { likes: 1 }},
-        { safe: true, upsert: true },
-        function(err, post) {
-            if (err) return res.status(400).send({err: err});
-            User.update({ username: req.body.user }, { $push: { likes: post } }, function(err) {
-                if (err) return res.status(400).send({err: err});
-            });
-            return res.sendStatus(200);
+     User.findOne({ username: req.body.user }, function(err, user) {
+        for (var i = 0; i < user.likes.length; i++) {
+            if (user.likes[i] == req.body.id) {
+                return res.sendStatus(400);
+            }
         }
-    );
+        user.likes.push(req.body.id);
+        user.save(function(err) {
+            if (err) return res.status(400).send({err: err});
+            Post.findByIdAndUpdate(
+                req.body.id,
+                { $inc: { likes: 1 }},
+                { safe: true, upsert: true },
+                function(err, post) {
+                    if (err) return res.status(400).send({err: err});
+                    return res.sendStatus(200);
+                }
+            );
+        });
+    });
 });
 
 router.post('/unlike', function(req, res) {
-    Post.findByIdAndUpdate(
-        req.body.id,
-        { $inc: { likes: -1 }},
-        { safe: true, upsert: true },
-        function(err, post) {
-            if (err) return res.status(400).send({err: err});
-            User.findOne({ username: req.body.user}, function(err, user) {
-                for (var i = 0; i < user.likes.length; i++) {
-                    if (user.likes[i] == post.id) {
-                        user.likes.splice(i, 1);
-                        i--
-                    }
-                }
+    User.findOne({ username: req.body.user }, function(err, user) {
+        for (var i = 0; i < user.likes.length; i++) {
+            if (user.likes[i] == req.body.id) {
+                user.likes.splice(i, 1);
                 user.save(function(err) {
                     if (err) return res.status(400).send({err: err});
-                    return res.sendStatus(200);
+                        Post.findByIdAndUpdate(
+                        req.body.id,
+                        { $inc: { likes: -1 }},
+                        { safe: true, upsert: true },
+                        function(err, post) {
+                            if (err) return res.status(400).send({err: err});
+                            return res.sendStatus(200);
+                        }
+                    );
                 });
-            });
+            }
         }
-    );
+        return res.sendStatus(400);
+    });
 });
 
+router.post('/edit', function(req, res) {
+    Post.update({ _id: req.body.id }, 
+    {
+        name: req.body.name,
+        description: req.body.description,
+        location: req.body.location,
+        date: req.body.date,
+        cost: req.body.cost,
+        games: req.body.games,
+    }, function(err) {
+        if (err) return res.status(400).send({err: err});
+        return res.sendStatus(200);  
+    });
+});
+
+router.delete('/delete', function(req, res) {
+    Post.remove({ _id: req.body.id }, function(err) {
+        User.update({ attendance: req.body.id }, { $pull: { attendance: req.body.id } }, function(err) {
+            User.update({ likes: req.body.id }, { $pull: { likes: req.body.id } }, function(err) {
+                if (err) return res.status(400).send({err: err});
+                return res.sendStatus(200);  
+            });
+        });
+    });
+});
 
 module.exports = router;

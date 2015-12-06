@@ -13,7 +13,7 @@ var User = new mongoose.Schema({
     displayName: String,
     description: String,
     imageLocation: String,
-    type: String,
+    admin: {type: Boolean, default: false},
     pages: {welcome: Number, profile: Number, edit: Number},
     ipAddress: String,
     location: String,
