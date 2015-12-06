@@ -24,7 +24,7 @@
                     <p>{{description}}</p>
                 </div>
                 <div class="ratings">
-                    <p>
+                    <p><p class="pull-right"><a ng-href="#/event/{{event._id}}">{{attendance.length}} attending</a></p>
                         <button type="button" class="btn btn-default btn-sm" ng-click="like()">
                             <i class="fa fa-thumbs-o-up"></i> 
                             {{likeText}}
