@@ -13,7 +13,7 @@ router.get('/', function(req, res, next) {
   }
   console.log("======");
   res.render("index",{
-      title : 'testing',
+      title : 'E-Vents',
     	user: JSON.stringify(req.user),
     });
 

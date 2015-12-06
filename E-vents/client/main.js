@@ -18,6 +18,10 @@ app.config(function ($routeProvider) {
         templateUrl: 'views/register_post.html',
         controller: 'registerPostingController'
     })
+    .when('/popularEvent', {
+        templateUrl: 'views/popular_event.html',
+        controller: 'popularEventController'
+    })
     .when('/about', {
         templateUrl: 'views/about.html',
     })

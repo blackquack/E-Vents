@@ -36,7 +36,7 @@
                         <a href="#/createEvent"><h5>Host an E-Vent</h5></a>
                     </li>
                     <li>
-                        <a href="#/eventFinder"><h5>Local E-Vent Finder</h5></a>
+                        <a href="#/popularEvent"><h5>Popular E-Vent</h5></a>
                     </li>
                 </ul>
                 <div class="pull-right" ng-controller='loginController'>
@@ -61,6 +61,7 @@
                 </div>
                 <div class="pull-right" ng-show='isLogged' ng-controller='logoutController'>
                         <!-- <p id='name'>{{username}}</p> -->
+                    <span id="name">{{name}}</span>
                     <md-button class="md-fab md-mini md-primary" href="#/myprofile">
                         <md-tooltip md-visible="demo.showTooltip" md-direction="{{demo.tipDirection}}">
                             My Profile
@@ -113,6 +114,7 @@
     <script src="./ctrl_msgs.js"></script>
     <script src="./ctrl_navbar.js"></script>
     <script src="./ctrl_profile.js"></script>
-    <script src='./ctrl_home.js'></script>
+    <script src="./ctrl_home.js"></script>
+    <script src="./ctrl_popular_event.js"></script>
 </body>
 </html>

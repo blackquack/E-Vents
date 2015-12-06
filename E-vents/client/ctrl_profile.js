@@ -1,7 +1,7 @@
 angular.module('app').controller('profileController',
 ['$scope', '$location', 'AuthService', '$routeParams', 'UserService', '$mdDialog', '$mdMedia',
 function ($scope, $location, AuthService, $routeParams, UserService, $mdDialog, $mdMedia) {
-    $scope.user = AuthService.getUserInfo();
+    $scope.user = $routeParams.username
     $scope.greet = "Profile Page";
 
     /* GOTO HOME IF NO USER EXIST, ALSO SET EVENTS */
