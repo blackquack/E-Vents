@@ -1,26 +1,24 @@
-<h1>{{user.name}}'s Profile<h1>
+<h1>My Profile<h1>
+
 <h2>My Events</h2>
 
-<div class="col-md-4">
-    <div>
-        <div class="thumbnail">
-            <div class="caption-full">
-                <h4 class="pull-right">{{costName(event.cost)}}
-                    <a class="btn btn-primary" ng-click="eventClick(event)">{{buttonName(event)}}</a>
-                </h4>
-                <h4><a ng-href="#/event/{{event._id}}">League of Legends LAN Event 2222</a></h4>
-                <h6>Data</h6>
-            </div>
-            <div class="ratings">
-                <p class="pull-right"><a ng-href="#/event/{{event._id}}">{{event.comments.length}} comments</a></p>
-                <p>
-                    <button type="button" class="btn btn-default btn-sm" ng-click="like(event)">
-                        <i class="fa fa-thumbs-o-up"></i> 
-                        {{likeText(event)}}
-                    </button>
-                    {{event.likes}} likes
-                </p>
-            </div>
+<div class="col-md-4" ng-repeat="event in events">
+    <div class="thumbnail">
+        <div class="caption-full">
+            <h4 class="pull-right">{{costName(event.cost)}}
+            </h4>
+            <h4><a ng-href="#/event/{{event._id}}">{{event.name}}</a></h4>
+            <h6>{{event.date.substring(0,10)}}</h6>
+        </div>
+        <div class="ratings">
+            <p class="pull-right"><a ng-href="#/event/{{event._id}}">{{event.comments.length}} comments</a></p>
+            <p>
+                <button type="button" class="btn btn-default btn-sm" ng-click="like(event)">
+                    <i class="fa fa-thumbs-o-up"></i> 
+                    {{likeText(event)}}
+                </button>
+                {{event.likes}} likes
+            </p>
         </div>
     </div>
 </div>
