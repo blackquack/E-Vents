@@ -43,6 +43,16 @@ function ($scope, $location, AuthService, $routeParams, UserService, $mdDialog, 
         }
     }
 
+    /* SEND BUTTON FUNCTION  */
+    sendMessage = function(receiver, content) {
+        UserService.message.save({
+            from: AuthService.getUserInfo().username,
+            to: receiver,
+            date: new Date(),
+            message: content
+        })
+    }
+
 }]);
 
 angular.module('app').controller('myprofileController',

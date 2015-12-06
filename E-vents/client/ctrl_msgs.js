@@ -9,7 +9,6 @@ app.controller('messagingController',
   		setMessages = function() {
   			UserService.userMessages.get({user: AuthService.getUserInfo().username},
 	  		function(msgObject) {
-	  			console.log(msgObject);
 	  			$scope.msgs = msgObject.messages;
 	  		});
   		}
@@ -22,7 +21,7 @@ app.controller('messagingController',
 	    $scope.showDialog = showDialog;
 
 	    /* MESSAGE SOMEONE BUTTON DIALOG FUNCTIONALIY*/
-		function showDialog($event) {
+		function showDialog($event, to) {
 	       	var parentEl = angular.element(document.body);
 	       	$mdDialog.show({
 		        parent: parentEl,
@@ -32,6 +31,8 @@ app.controller('messagingController',
 	      	});
 
 	      	function DialogController($scope, $mdDialog) {
+	      		$scope.receiver = to
+
 	        	$scope.cancel = function() {
 	          		$mdDialog.hide();
 	        	}
