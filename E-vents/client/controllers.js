@@ -117,7 +117,7 @@ function ($scope, $location, AuthService) {
 angular.module('app').controller('profileController',
 ['$scope', '$location', 'AuthService',
 function ($scope, $location, AuthService) {
-    $scope.name = AuthService.getUserInfo().name;
+    $scope.user = AuthService.getUserInfo();
     $scope.greet = "Profile Page";
 
 }]);
