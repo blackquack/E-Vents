@@ -20,6 +20,7 @@ var User = new mongoose.Schema({
     attendance: [{type: mongoose.Schema.Types.ObjectId, ref: 'Post'}],
     likes: [{type: mongoose.Schema.Types.ObjectId, ref: 'Post'}],
     messages: [{type: mongoose.Schema.Types.ObjectId, ref: 'Message'}],
+    admin : {type: Boolean, default: false},
     created_at: {type: Date, default: Date.now}
 })
 
