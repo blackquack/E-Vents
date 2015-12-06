@@ -105,21 +105,21 @@ router.post('/unlike', function(req, res) {
         for (var i = 0; i < user.likes.length; i++) {
             if (user.likes[i] == req.body.id) {
                 user.likes.splice(i, 1);
-                user.save(function(err) {
-                    if (err) return res.status(400).send({err: err});
-                        Post.findByIdAndUpdate(
-                        req.body.id,
-                        { $inc: { likes: -1 }},
-                        { safe: true, upsert: true },
-                        function(err, post) {
-                            if (err) return res.status(400).send({err: err});
-                            return res.sendStatus(200);
-                        }
-                    );
-                });
+                i--;
             }
         }
-        return res.sendStatus(400);
+        user.save(function(err) {
+            if (err) return res.status(400).send({err: err});
+            Post.findByIdAndUpdate(
+                req.body.id,
+                { $inc: { likes: -1 }},
+                { safe: true, upsert: true },
+                function(err, post) {
+                    if (err) return res.status(400).send({err: err});
+                    return res.sendStatus(200);
+                }
+            );
+        });
     });
 });
 
