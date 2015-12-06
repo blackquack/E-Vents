@@ -43,7 +43,7 @@ app.controller('registerPostingController',
         $scope.exists = function (item, list) {
             return list.indexOf(item) > -1;
         };
-        
+
         /* REGISTER BUTTON */
         $scope.register = function() {
             $scope.form = {};

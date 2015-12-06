@@ -1,7 +1,7 @@
 <div>
     <div class="col-md-4"></div>
 <div class="col-md-4">
-  <h1>Admin Login</h1>
+  <h1>E-vents Admin Login</h1>
   <div ng-show="error" class="alert alert-danger">{{errorMessage}}</div>
   <form class="form" name="form">
     <div class="form-group">
@@ -24,8 +24,9 @@
       <button type="submit" class="btn btn-default"
               ng-disabled="form.email.$invalid || form.password.$invalid"
               ng-click="login()">Login</button>
-      
+
     </div>
+    <a href='#/'>Back to E-vents</a>
   </form>
 </div>
 <div class="col-md-4"></div>
