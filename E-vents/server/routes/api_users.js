@@ -18,6 +18,17 @@ router.get('/:user', function(req, res) {
     });
 });
 
+router.get('/:user/attendance', function(req, res) {
+    User.
+    findOne({ username: req.params.user }).
+    populate('attendance').
+    select('attendance').
+    exec(function(err, attendance) {
+        if (err) return res.status(409).send({err : err});
+        return res.status(200).send(attendance);      
+    })
+});
+
 router.get('/:user/messages', function(req, res) {
     User.
     findOne({ username: req.params.user }).
