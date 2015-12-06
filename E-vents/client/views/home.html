@@ -16,26 +16,24 @@
         <div class="col-md-9">
             <h1>E-Vent of the Day</h1>
             <div class="thumbnail">
-                <img class="img-responsive" src="http://i.imgur.com/qO6cDtO.png" alt="">
+                <a ng-href="#/event/{{eventID}}"><img class="img-responsive" src="http://i.imgur.com/qO6cDtO.png" alt=""></a>
                 <div class="caption-full">
-                    <h4 class="pull-right">FREE <a class="btn btn-primary">SIGN UP</a></h4>
-                    <h4><a href="#">League of Legends LAN Tournament</a></h4>
-                    <p>Date</p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                    eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-                    minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-                    velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-                    cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+                    <h4 class="pull-right">FREE <a class="btn btn-primary" ng-click="joinClick()" ng-disabled="userJoined">JOIN</a></h4>
+                    <h4><a ng-href="#/event/{{eventID}}">{{name}}</a></h4>
+                    <h5>{{location}}</h5>
+                    <h6>{{date}}</h6>
+                    <p>{{description}}</p>
                 </div>
                 <div class="ratings">
-                    <p class="pull-right">2 comments</p>
+                    <a ng-href="#/event/{{eventID}}">
+                        <p class="pull-right">{{attending}} attending</p>
+                    </a>
                     <p>
-                        <button type="button" class="btn btn-default btn-sm">
+                        <button type="button" class="btn btn-default btn-sm" ng-click="like()">
                             <i class="fa fa-thumbs-o-up"></i> 
-                            Like
+                            {{likeText}}
                         </button>
-                        10 likes
+                        {{likes}} likes
                     </p>
                 </div>
             </div>
