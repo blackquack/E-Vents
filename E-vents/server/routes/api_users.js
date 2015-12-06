@@ -52,6 +52,31 @@ router.get('/:user/messages/:id', function(req, res) {
     });
 });
 
+router.post('/type', function(req, res) {
+    User.findOne({ username: req.body.user }, function(req, user) {
+        if (err) return res.status(409).send({err : err});
+        user.admin = true;
+        user.save(function(err) {
+            if (err) return res.status(409).send({err : err});
+            return res.status(200);
+        });
+    });
+});
+
+router.delete('/delete', function(req, res) {
+    User.remove({ username: req.body.user }, function(err) {
+        if (err) return res.status(409).send({err : err});
+        return res.status(200);
+    });
+});
+
+router.post('/edit', function(req, res) {
+    User.update({ username: req.body.user }, { description: req.body.description }, function(err) {
+            if (err) return res.status(409).send({err : err});
+            return res.status(200);
+    });
+});
+
 router.post('/message', function(req, res) {
     Message.create({
         from: req.body.from,
