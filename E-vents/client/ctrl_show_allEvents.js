@@ -1,12 +1,12 @@
 var app = angular.module('app');
 
 app.controller('alleventsController',
-	['$scope', 'PostingService', 'AuthService', '$location', '$routeParams',
-  	function ($scope, PostingService, AuthService, $location, $routeParams) {
+	['$scope', 'PostingService', 'AuthService', '$location', '$routeParams', 'UserService',
+  	function ($scope, PostingService, AuthService, $location, $routeParams, UserService) {
 
   		/* INITIALIZE USERNAME */
   		USERNAME = null;
-  		if (AuthService.loginStatus() == true)
+  		if (AuthService.loginStatus() == true) 
   			USERNAME = AuthService.getUserInfo().username;
 
   		/* CHECK IF LOGGED IN & REDIRECT FUNCTION */
@@ -84,10 +84,22 @@ app.controller('alleventsController',
 
 		/* SET LIKE NAME FUNCTION */
 		$scope.likeText = function(event) {
-			if (event.likeText == null) {
+			
+			// no logged in user, initial value
+			if (event.likeText == null && USERNAME == null) {
 				event.likeText = 'Like'
 				return 'Like'
 			}
+			// logged in user, initial value
+			if (event.likeText == null && USERNAME != null) {
+				if (AuthService.getUserInfo().likes.indexOf(event._id) > -1) {
+					event.likeText = 'Unlike'
+					return 'Unlike'
+				}
+				event.likeText = 'Like'
+				return 'Like'
+			}
+
 			return event.likeText
 		}
 
