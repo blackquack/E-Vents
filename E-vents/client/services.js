@@ -53,7 +53,32 @@ function ($q, $timeout, $http,$window,$interval,resources,$route) {
             return deferred.promise;
 
         },
+        login_admin : function login_admin(username, password) {
 
+            // create a new instance of deferred
+            var deferred = $q.defer();
+
+            // send a post request to the server
+            $http.post('/auth/adminlogin', {username: username, password: password})
+            // handle success
+            .success(function (data, status) {
+                if(status === 200){
+                    //user = data.user.name;
+                    //console.log(data);
+                    deferred.resolve();
+                } else {
+                    deferred.reject();
+                }
+            })
+            // handle error
+            .error(function (data) {
+                deferred.reject();
+            });
+
+            // return promise object
+            return deferred.promise;
+
+        },
         login_twitter : function login_twitter(){
             var deferred = $q.defer();
             console.log("clicked");

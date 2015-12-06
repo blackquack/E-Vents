@@ -26,7 +26,7 @@ app.config(function ($routeProvider) {
     })
     .when('/myprofile/', {
         templateUrl: 'views/myprofile.html',
-        controller: 'profileController',
+        controller: 'myprofileController',
 
     })
     .when('/user/:username', {
@@ -41,10 +41,19 @@ app.config(function ($routeProvider) {
         templateUrl: 'views/eventslist.html',
         controller: 'alleventsController'
     })
+    .when('/game/:game', {
+        templateUrl: 'views/eventslist.html',
+        controller: 'querygameController'
+    })
     .when('/admin', {
         templateUrl: 'views/admin/login.html',
-        //controller: 'adminloginController',
-        display : {navbar : false}
+        controller: 'adminloginController',
+        display : {navbar : false, },
+    })
+    .when('/admin/dashboard', {
+        templateUrl: 'views/admin/dashboard.html',
+        controller: 'dashboardController',
+        display : {navbar : false, requireAdmin : true },
     })
     .otherwise({redirectTo: '/'});
 });
@@ -62,6 +71,14 @@ app.run(function ($rootScope, $location, $route, AuthService) {
     }
     else{
         $rootScope.hideNav = true;
+        if (next.display.requireAdmin && AuthService.getUserInfo() !== null ) {
+            if (!AuthService.getUserInfo().admin){
+                $location.path('/admin');
+                $route.reload();
+            }
+
+        }
     }
+
   });
 });

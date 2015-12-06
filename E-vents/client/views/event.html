@@ -24,7 +24,7 @@
                     <p>{{description}}</p>
                 </div>
                 <div class="ratings">
-                    <p>
+                    <p><p class="pull-right"><a ng-href="#/event/{{event._id}}">{{attendance.length}} attending</a></p>
                         <button type="button" class="btn btn-default btn-sm" ng-click="like()">
                             <i class="fa fa-thumbs-o-up"></i> 
                             {{likeText}}
@@ -36,7 +36,7 @@
 
             <div class="well">
                 <h4>Attendees</h4>
-                <a ng-href="#/profile/{{user}}" ng-repeat="user in attendance">
+                <a ng-href="#/user/{{user}}" ng-repeat="user in attendance">
                     <img src="http://i.imgur.com/ZVTXtFJ.png" width="40" height="40" class="img-circle"/>
                     {{user}}
                 </a>

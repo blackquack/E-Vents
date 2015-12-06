@@ -102,7 +102,7 @@ function ($scope, $location, AuthService) {
         // handle success
         .then(function () {
             console.log("Redirecting to login page");
-            $location.path('/login');
+            $location.path('/');
         })
         // handle error
         .catch(function () {
@@ -113,11 +113,49 @@ function ($scope, $location, AuthService) {
 
     };
 }]);
-/* handle navigaton bar on the top */
-angular.module('app').controller('profileController',
-['$scope', '$location', 'AuthService',
-function ($scope, $location, AuthService) {
-    $scope.user = AuthService.getUserInfo();
-    $scope.greet = "Profile Page";
+angular.module('app').controller('adminloginController',
+['$scope', '$location', 'AuthService', '$route', '$window',
+function ($scope, $location, AuthService,$route,$window) {
+    if (AuthService.getUserInfo()){
+        if (AuthService.getUserInfo().admin){
+            $location.path('/admin/dashboard');
+        }
+    }
+    // user clicks log in
+    $scope.login = function () {
+        $scope.error = false;
+        console.log('admin login clicked!');
+        // call login from service
+        AuthService.login_admin($scope.loginForm.email, $scope.loginForm.password)
+        // handle success
+        .then(function () {
+            console.log("Admin Conneted!");
+            $window.location.reload();
+            $location.path('/admin/dashboard');
+        })
+        .catch(function () {
+            $scope.error = true;
+            $scope.errorMessage = "Invalid email and/or password";
+        });
 
+    };
+}]);
+
+angular.module('app').controller('dashboardController',
+  ['$scope', '$location', 'AuthService', 'UserService', '$resource',
+  function ($scope, $location, AuthService,UserService,$resource ) {
+      $scope.test = false;
+      $scope.name = AuthService.getUserInfo().name;
+      console.log($scope.test);
+      console.log(AuthService.getUserInfo().username);
+    // get the information for all users
+    UserService.getAllUsers.query(
+    function(users) {
+        console.log(users);
+        $scope.users = users;
+    });
+
+    $scope.tableClick = function(username) {
+      $location.path('/profile/' + username);
+    }
 }]);
