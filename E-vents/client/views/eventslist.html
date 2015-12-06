@@ -24,6 +24,7 @@
                             <a class="btn btn-primary" ng-click="eventClick(event)" ng-disabled="userJoined(event)">JOIN</a>
                         </h4>
                         <h4><a ng-href="#/event/{{event._id}}">{{event.name}}</a></h4>
+                        <h5>{{event.location}}</h5>
                         <h6>{{event.date.substring(0,10)}}</h6>
                         <p>{{event.description}}</p>
                     </div>
