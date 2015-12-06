@@ -140,7 +140,7 @@ router.post('/edit', function(req, res) {
 
 router.delete('/delete', function(req, res) {
     Post.remove({ _id: req.body.id }, function(err) {
-        User.update({ attendance: req.body.id } { $pull: { attendance: req.body.id } }, function(err) {
+        User.update({ attendance: req.body.id }, { $pull: { attendance: req.body.id } }, function(err) {
             User.update({ likes: req.body.id }, { $pull: { likes: req.body.id } }, function(err) {
                 if (err) return res.status(400).send({err: err});
                 return res.sendStatus(200);  

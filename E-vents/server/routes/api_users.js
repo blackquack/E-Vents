@@ -71,7 +71,7 @@ router.delete('/delete', function(req, res) {
 });
 
 router.post('/edit', function(req, res) {
-    User.update({ username: req.body.user }, { description: req.body.description } function(err) {
+    User.update({ username: req.body.user }, { description: req.body.description }, function(err) {
             if (err) return res.status(409).send({err : err});
             return res.status(200);
     });
