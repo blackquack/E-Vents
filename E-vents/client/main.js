@@ -48,7 +48,7 @@ app.config(function ($routeProvider) {
     })
     .when('/admin/dashboard', {
         templateUrl: 'views/admin/dashboard.html',
-        //controller: 'adminloginController',
+        controller: 'dashboardController',
         display : {navbar : false, requireAdmin : true },
     })
     .otherwise({redirectTo: '/'});

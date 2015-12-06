@@ -150,3 +150,21 @@ function ($scope, $location, AuthService,$route,$window) {
 
     };
 }]);
+
+angular.module('app').controller('dashboardController',
+  ['$scope', '$location', 'AuthService', 'UserService', '$resource',
+  function ($scope, $location, AuthService,UserService,$resource ) {
+      $scope.test = false;
+      console.log($scope.test);
+      console.log(AuthService.getUserInfo().username);
+    // get the information for all users
+    UserService.getAllUsers.query(
+    function(users) {
+        console.log(users);
+        $scope.users = users;
+    });
+
+    $scope.tableClick = function(username) {
+      $location.path('/profile/' + username);
+    }
+}]);
