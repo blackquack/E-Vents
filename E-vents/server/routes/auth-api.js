@@ -7,7 +7,6 @@ var util   = require('util');
 module.exports = function(passport){
 
   router.get('/success', function(req, res){
-
     //res.send({state: 'success', user: req.user ? req.user : null});
     res.redirect('/');
   });
@@ -27,6 +26,10 @@ module.exports = function(passport){
     failureRedirect: '/auth/failure'
   }));
 
+  router.post('/adminlogin',logout,passport.authenticate('local-login', {
+    successRedirect: '/auth/success',
+    failureRedirect: '/auth/failure'
+  }));
 //---------------------------------------------------
 // OAuth
 
@@ -51,4 +54,11 @@ module.exports = function(passport){
 
   return router;
 
+}
+
+var logout = function (req,res,next){
+    if (req.user){
+        req.logout();
+    }
+    next();
 }

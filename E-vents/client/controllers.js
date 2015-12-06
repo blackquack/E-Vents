@@ -102,7 +102,7 @@ function ($scope, $location, AuthService) {
         // handle success
         .then(function () {
             console.log("Redirecting to login page");
-            $location.path('/login');
+            $location.path('/');
         })
         // handle error
         .catch(function () {
@@ -120,4 +120,33 @@ function ($scope, $location, AuthService) {
     $scope.user = AuthService.getUserInfo();
     $scope.greet = "Profile Page";
 
+}]);
+
+
+angular.module('app').controller('adminloginController',
+['$scope', '$location', 'AuthService', '$route', '$window',
+function ($scope, $location, AuthService,$route,$window) {
+    if (AuthService.getUserInfo()){
+        if (AuthService.getUserInfo().admin){
+            $location.path('/admin/dashboard');
+        }
+    }
+    // user clicks log in
+    $scope.login = function () {
+        $scope.error = false;
+        console.log('admin login clicked!');
+        // call login from service
+        AuthService.login_admin($scope.loginForm.email, $scope.loginForm.password)
+        // handle success
+        .then(function () {
+            console.log("Admin Conneted!");
+            $window.location.reload();
+            $location.path('/admin/dashboard');
+        })
+        .catch(function () {
+            $scope.error = true;
+            $scope.errorMessage = "Invalid email and/or password";
+        });
+
+    };
 }]);
