@@ -1,8 +1,8 @@
 var app = angular.module('app');
 
 app.controller('alleventsController',
-	['$scope', 'PostingService', 'AuthService', '$location', '$routeParams', 'UserService',
-  	function ($scope, PostingService, AuthService, $location, $routeParams, UserService) {
+	['$scope', 'PostingService', 'AuthService', '$location', '$routeParams',
+  	function ($scope, PostingService, AuthService, $location, $routeParams) {
 
   		/* INITIALIZE USERNAME */
   		USERNAME = null;
