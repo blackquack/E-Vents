@@ -28,6 +28,7 @@ app.controller('eventController',
 			$scope.name = post.name
 			$scope.description = post.description
 			$scope.likes = post.likes
+			$scope.likeText = setLikeText(post)
 			$scope.comments = post.comments
 			$scope.attendance = post.attendance
 			$scope.userJoined = userJoined(post)
@@ -51,8 +52,16 @@ app.controller('eventController',
 			PostingService.joinEvent.save({id:event._id, user:USERNAME})	
 		}
 
+		/* SET LIKE BUTTON INITIAL TEXT */
+		setLikeText = function(event) {
+			if (AuthService.getUserInfo().likes.indexOf(event._id) > -1) {
+				return 'Unlike'
+			} else {
+				return 'Like'
+			}
+		}
+
 		/* LIKE BUTTON */
-		$scope.likeText = 'Like'
 		$scope.like = function() {
 			if ($scope.likeText == 'Like') {
 				like()
