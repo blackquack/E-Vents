@@ -114,10 +114,3 @@ function ($scope, $location, AuthService) {
     };
 }]);
 /* handle navigaton bar on the top */
-angular.module('app').controller('profileController',
-['$scope', '$location', 'AuthService',
-function ($scope, $location, AuthService) {
-    $scope.user = AuthService.getUserInfo();
-    $scope.greet = "Profile Page";
-
-}]);
