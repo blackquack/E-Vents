@@ -52,10 +52,10 @@ app.controller('alleventsController',
 
 
 		/* SET BUTTON NAME FUNCTION */
-		$scope.buttonName = function(event) {
+		$scope.userJoined = function(event) {
 			if (event.attendance.indexOf(USERNAME) > -1)
-				return "UNJOIN"
-			return "JOIN"
+				return true
+			return false
 		}
 
 		/* SET BUTTON FUNCTIONALITY */
