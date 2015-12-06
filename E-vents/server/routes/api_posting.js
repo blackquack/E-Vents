@@ -61,9 +61,12 @@ router.get('/game/:game', function(req, res) {
 });
 
 router.post('/join', function(req, res) {
-    Post.update({ _id: req.body.id }, { $push: { attendance: req.body.user } }, function(err) {
+    Post.update({ _id: req.body.id }, { $addToSet: { attendance: req.body.user } }, function(err) {
         if (err) return res.status(400).send({err: err});
-        return res.sendStatus(200);
+        User.update({ username: req.body.user }, { $addToSet: { attendance: req.body.id } }, function(err) {
+            if (err) return res.status(400).send({err: err});
+            return res.sendStatus(200);
+        });
     });
 });
 
