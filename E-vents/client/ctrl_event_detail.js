@@ -30,16 +30,16 @@ app.controller('eventController',
 			$scope.likes = post.likes
 			$scope.comments = post.comments
 			$scope.attendance = post.attendance
-			$scope.buttonName = setButtonName(post)
+			$scope.userJoined = userJoined(post)
 			$scope.eventClick = setEventClick(post)
 		}
 
 
 		/* SET BUTTON NAME FUNCTION */
-		setButtonName = function(event) {
+		userJoined = function(event) {
 			if (event.attendance.indexOf(USERNAME) > -1)
-				return "UNJOIN"
-			return "JOIN"
+				return true
+			return false
 		}
 
 		/* SET EVENT BUTTON FUNCTIONALITY */

@@ -14,12 +14,14 @@
         </div>
 
         <div class="col-md-9">
-            <div ng-repeat="event in allEvents">
+            <h4>SEARCH EVENT NAME, DATE, OR DESCRIPTION:</h4>
+            <input id="search" class="form-control" ng-model="searchText"> </input>
+            <div ng-repeat="event in allEvents | filter:searchText">
                 <div class="thumbnail">
                     <a ng-href="#/event/{{event._id}}"><img class="img-responsive" src="http://i.imgur.com/qO6cDtO.png"></a>
                     <div class="caption-full">
                         <h4 class="pull-right">{{costName(event.cost)}}
-                            <a class="btn btn-primary" ng-click="eventClick(event)">{{buttonName(event)}}</a>
+                            <a class="btn btn-primary" ng-click="eventClick(event)" ng-disabled="userJoined(event)">JOIN</a>
                         </h4>
                         <h4><a ng-href="#/event/{{event._id}}">{{event.name}}</a></h4>
                         <h6>{{event.date.substring(0,10)}}</h6>
