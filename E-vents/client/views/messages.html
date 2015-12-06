@@ -1,9 +1,18 @@
-<h1>My Messages</h1> <md-button class="md-raised pull-right" ng-click="showDialog($event)">Send a Message!</md-button>
+<md-button class="md-raised md-primary" ng-click="showDialog($event)">
+	<md-tooltip md-visible="demo.showTooltip" md-direction="{{demo.tipDirection}}">
+    	Compose
+	</md-tooltip>
+	<i class="fa fa-envelope"></i>
+</md-button>
+<br>
+<h1>My Messages</h1>
 <md-list-item class="md-2-line" ng-repeat="msg in msgs">
 	<img class="md-avatar" src="http://i.imgur.com/ZVTXtFJ.png" width="40" height="40" class="img-circle"/>
 
 	<div class="md-list-item-text">
 		<h3  ng-click="toUserProfile()"> {{msg.from}} </h3>
 		<p> {{msg.message}} </p>
-	 </div>
+	</div>
+	<md-button class="md-raised md-primary pull-right" ng-click="showDialog($event)"><i class="fa fa-reply"></i></md-button>
+	<md-button class="md-raised md-warn pull-right" ng-click="#"><i class="fa fa-trash"></i></md-button>
 </md-list-item>

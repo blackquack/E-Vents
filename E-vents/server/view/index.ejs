@@ -16,7 +16,7 @@
 </head>
 <body ng-app="app">
     <!-- NAVIGATION BAR -->
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" ng-controller="navbarController">
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" ng-controller="navbarController" ng-hide='hideNav'>
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -61,7 +61,7 @@
                 </div>
                 <div class="pull-right" ng-show='isLogged' ng-controller='logoutController'>
                         <!-- <p id='name'>{{username}}</p> -->
-                    <md-button class="md-fab md-mini md-primary" href="#/user/username">
+                    <md-button class="md-fab md-mini md-primary" href="#/myprofile">
                         <md-tooltip md-visible="demo.showTooltip" md-direction="{{demo.tipDirection}}">
                             My Profile
                         </md-tooltip>
@@ -109,7 +109,6 @@
     <script src="./controllers.js"></script>
     <script src="./ctrl_register_post.js"></script>
     <script src="./ctrl_show_allEvents.js"></script>
-    <script src="./ctrl_query_game.js"></script>
     <script src="./ctrl_event_detail.js"></script>
     <script src="./ctrl_msgs.js"></script>
     <script src="./ctrl_navbar.js"></script>

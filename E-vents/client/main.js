@@ -24,22 +24,27 @@ app.config(function ($routeProvider) {
         templateUrl: 'views/event.html',
         controller: 'eventController'
     })
-    .when('/profile', {
+    .when('/myprofile/', {
+        templateUrl: 'views/myprofile.html',
+        controller: 'profileController',
+
+    })
+    .when('/user/:username', {
         templateUrl: 'views/profile.html',
         controller: 'profileController',
-        access : { restricted : true}
     })
     .when('/messages', {
       templateUrl: 'views/messages.html',
       controller: 'messagingController'
     })
-    .when('/events', {
+    .when('/events/:type', {
         templateUrl: 'views/eventslist.html',
         controller: 'alleventsController'
     })
-    .when('/game/:game', {
-        templateUrl: 'views/eventslist.html',
-        controller: 'querygameController'
+    .when('/admin', {
+        templateUrl: 'views/admin/login.html',
+        //controller: 'adminloginController',
+        display : {navbar : false}
     })
     .otherwise({redirectTo: '/'});
 });
@@ -49,3 +54,14 @@ app.config(['$httpProvider', function($httpProvider) {
     $httpProvider.defaults.useXDomain = true;
     delete $httpProvider.defaults.headers.common['X-Requested-With'];
 }]);
+
+app.run(function ($rootScope, $location, $route, AuthService) {
+  $rootScope.$on('$routeChangeStart', function (event, next, current) {
+    if (next.display == undefined || next.display == true) {
+        $rootScope.hideNav = false;
+    }
+    else{
+        $rootScope.hideNav = true;
+    }
+  });
+});

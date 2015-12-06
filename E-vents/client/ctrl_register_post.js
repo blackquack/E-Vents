@@ -58,7 +58,7 @@ app.controller('registerPostingController',
                 date: $scope.date,
                 cost:$scope.cost,
                 games: $scope.selected,
-                creator: AuthService.getUserInfo._id
+                creator: AuthService.getUserInfo().username
             })
 
             $location.path('/');

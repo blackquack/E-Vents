@@ -1,10 +1,16 @@
 var app = angular.module('app');
 
 app.controller('eventController',
-	['$scope', 'PostingService', '$routeParams', '$location',
-  	function ($scope, PostingService, $routeParams, $location) {
+	['$scope', 'PostingService', '$routeParams', '$location', 'AuthService',
+  	function ($scope, PostingService, $routeParams, $location, AuthService) {
 
-  		/* make a api call to get post using id from URL*/
+  		/* CHECK IF LOGGED IN */
+    	if (AuthService.loginStatus() == false) {
+        	$location.path('/register')
+        	return
+    	}
+
+  		/* GET POST USING ID FROM URL*/
 		PostingService.postID.get({id: $routeParams.id}, 
 		function(result){
 			setPost(result)
@@ -13,6 +19,8 @@ app.controller('eventController',
 			$location.path('/')
 		});
 
+		USERNAME = AuthService.getUserInfo().username;
+
 		/* FUNCTION TO INITIALIZE */
 		setPost = function(post) {
 			$scope.cost = post.cost
@@ -20,14 +28,42 @@ app.controller('eventController',
 			$scope.name = post.name
 			$scope.description = post.description
 			$scope.likes = post.likes
+			$scope.likeText = setLikeText(post)
 			$scope.comments = post.comments
 			$scope.attendance = post.attendance
+			$scope.userJoined = userJoined(post)
+			$scope.eventClick = setEventClick(post)
+		}
+
+
+		/* SET BUTTON NAME FUNCTION */
+		userJoined = function(event) {
+			if (event.attendance.indexOf(USERNAME) > -1)
+				return true
+			return false
+		}
+
+		/* SET EVENT BUTTON FUNCTIONALITY */
+		setEventClick = function(event) {
+
+			// in the event already, no api to remove
+			if (event.attendance.indexOf(USERNAME) > -1)
+				return
+			PostingService.joinEvent.save({id:event._id, user:USERNAME})	
+		}
+
+		/* SET LIKE BUTTON INITIAL TEXT */
+		setLikeText = function(event) {
+			if (AuthService.getUserInfo().likes.indexOf(event._id) > -1) {
+				return 'Unlike'
+			} else {
+				return 'Like'
+			}
 		}
 
 		/* LIKE BUTTON */
-		$scope.likeText = 'like'
 		$scope.like = function() {
-			if ($scope.likeText == 'like') {
+			if ($scope.likeText == 'Like') {
 				like()
 			}
 			else {
@@ -38,18 +74,18 @@ app.controller('eventController',
 		like = function() {
 			PostingService.like.save({
 				id: $routeParams.id,
-				user: 'username'
+				user: USERNAME
 			})
-			$scope.likeText = 'unlike'
+			$scope.likeText = 'Unlike'
 			$scope.likes++
 		}
 
 		unlike = function() {
 			PostingService.unLike.save({
 				id: $routeParams.id,
-				user: 'username'
+				user: USERNAME
 			})
-			$scope.likeText = 'like'
+			$scope.likeText = 'Like'
 			$scope.likes--
 		}
 
@@ -59,7 +95,7 @@ app.controller('eventController',
 
 			PostingService.comment.save({
 				id: $routeParams.id,
-				user: 'username',
+				user: USERNAME,
 				comment: $scope.inputComment
 			}, 
 			function(success) {
