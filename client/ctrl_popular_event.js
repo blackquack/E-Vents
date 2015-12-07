@@ -9,24 +9,13 @@ app.controller('popularEventController',
         if (AuthService.loginStatus() == true) 
             USERNAME = AuthService.getUserInfo().username;
 
+
         /* FUNCTION TO CHECK IF LOGGED IN & REDIRECT */
         redirectNotLogged = function() {
             if (AuthService.loginStatus() == false)
                 $location.path('/register');
         }
 
-
-        var userLikes
-
-        /* GET UPDATED VERSION OF USER */
-        UserService.getUser.get({user:USERNAME}, 
-        function(user){
-            userLikes = user.likes
-            setMostPopular();
-        },
-        function(err){
-            setMostPopular();
-        })
 
         /* GET ALL EVENT POSTINGS & SET MOST POPULAR*/
         setMostPopular = function() {
@@ -36,6 +25,7 @@ app.controller('popularEventController',
             })
         }
 
+        /* GET THE MOST POPULAR EVENT BASE ON ATTENDANCE */
         getPopularEvent = function(events) {
             var attendingNum = -1;
             var popularEvent = null;  
@@ -50,6 +40,7 @@ app.controller('popularEventController',
             return popularEvent   
         }
 
+        /* INITIALIZE VALUES ONTO HTML */
         setPopularEvent = function(event) {
             $scope.name = event.name
             $scope.location = event.location
@@ -66,6 +57,22 @@ app.controller('popularEventController',
                 $scope.userJoined = false
             }
         }
+
+
+        var userLikes
+
+        /* GET UPDATED VERSION OF USER */
+        if (USERNAME != null) {
+            UserService.getUser.get({user:USERNAME}, 
+            function(user){
+                userLikes = user.likes
+                setMostPopular();
+            })
+        }
+        else {
+            setMostPopular();
+        }
+
 
 
         /* SET JOIN BUTTON FUNCTIONALITY */
@@ -89,7 +96,7 @@ app.controller('popularEventController',
 
         /* SET LIKE BUTTON INITIAL TEXT */
         setLikeText = function(event) {
-            if (USERNAME == null) return;
+            if (USERNAME == null) return 'Like';
             if (userLikes.indexOf(event._id) > -1) {
                 return 'Unlike'
             } else {

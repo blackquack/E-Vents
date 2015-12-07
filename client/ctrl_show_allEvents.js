@@ -15,19 +15,7 @@ app.controller('alleventsController',
             	$location.path('/register');
         }
 
-        var userLikes
-
-        /* GET UPDATED VERSION OF USER */
-		UserService.getUser.get({user:USERNAME}, 
-		function(user){
-			userLikes = user.likes
-			setAllPostings();
-		},
-		function(err){
-			setAllPostings();
-		})	
-
-		/* FUNCTION TO SHOW ALL EVENT POSTINGS TYPE BASE ON URL */
+        /* FUNCTION TO SHOW ALL EVENT POSTINGS TYPE BASE ON URL */
 		setAllPostings = function() {
 			if ($routeParams.type == 'all') {
 				PostingService.allPost.query(function(result){
@@ -63,8 +51,21 @@ app.controller('alleventsController',
 			}
 		}
 
+        var userLikes
 
-		/* SET BUTTON NAME FUNCTION */
+        /* GET UPDATED VERSION OF USER */
+        if (USERNAME != null) {
+            UserService.getUser.get({user:USERNAME}, 
+            function(user){
+                userLikes = user.likes
+                setAllPostings();
+            })
+        }
+        else {
+            setAllPostings();
+        }
+
+		/* FUNCTION TO SET BUTTON NAME */
 		$scope.userJoined = function(event) {
 			if (event.attendance.indexOf(USERNAME) > -1)
 				return true
@@ -87,7 +88,7 @@ app.controller('alleventsController',
 			}
 		}
 
-		/* SET COST NAME FUNCTION */
+		/* FUNCTION TO SET COST NAME */
 		$scope.costName = function(cost) {
 			if (cost == 0)
 				return 'FREE'
