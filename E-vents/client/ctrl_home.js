@@ -1,34 +1,49 @@
 var app = angular.module('app');
 
 app.controller('homeController',
-    ['$scope', 'PostingService', '$location', 'AuthService',
-    function ($scope, PostingService, $location, AuthService) {
+    ['$scope', 'PostingService', '$location', 'AuthService', 'UserService',
+    function ($scope, PostingService, $location, AuthService, UserService) {
 
         /* INITIALIZE USERNAME */
         USERNAME = null;
         if (AuthService.loginStatus() == true) 
             USERNAME = AuthService.getUserInfo().username;
 
-        /* CHECK IF LOGGED IN & REDIRECT FUNCTION */
+        /* FUNCTION TO CHECK IF LOGGED IN & REDIRECT */
         redirectNotLogged = function() {
             if (AuthService.loginStatus() == false)
                 $location.path('/register');
         }
+
+
+        var userLikes
+
+        /* GET UPDATED VERSION OF USER */
+        UserService.getUser.get({user:USERNAME}, 
+        function(user){
+            userLikes = user.likes
+            checkAndSet();
+        },
+        function(err){
+            checkAndSet();
+        })  
 
         /* MAIN EVENT VALUES */
         EVENT_OF_DAY = 'League of Legends LAN Tournament'
         EVENT_OF_DAY_DESC = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum'
         EVENT_OF_DAY_LOC = '40 St. George, Toronto'
 
-        /* CHECK IF EVENT WAS CREATED */
-        PostingService.postName.query({name: EVENT_OF_DAY},
-        function(post) {
-            if (post.length > 0) {
-                setHomePage(post[0])
-            } else {
-                createEventOfDay();
-            }
-        })
+        /* FUNCTION TO CHECK IF EVENT WAS CREATED AND SET HOMEPAGE */
+        checkAndSet = function() {    
+            PostingService.postName.query({name: EVENT_OF_DAY},
+            function(post) {
+                if (post.length > 0) {
+                    setHomePage(post[0])
+                } else {
+                    createEventOfDay();
+                }
+            })
+        }
 
         /* CREATE EVENT FUNCTION */
         createEventOfDay = function() {
@@ -86,7 +101,7 @@ app.controller('homeController',
         /* SET LIKE BUTTON INITIAL TEXT */
         setLikeText = function(event) {
             if (USERNAME == null) return;
-            if (AuthService.getUserInfo().likes.indexOf(event._id) > -1) {
+            if (userLikes.indexOf(event._id) > -1) {
                 return 'Unlike'
             } else {
                 return 'Like'

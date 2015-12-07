@@ -78,8 +78,10 @@ function ($scope, $location, AuthService,$window) {
             $location.path('/');
         });
     };
-    if (AuthService.getUserInfo() != null)
+    if (AuthService.getUserInfo() != null) {
         $scope.name = AuthService.getUserInfo().username
+        if (AuthService.getUserInfo().name != null) $scope.name = AuthService.getUserInfo().name
+    }
 }]);
 
 /* handle login and register */

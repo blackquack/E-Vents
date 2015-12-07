@@ -58,7 +58,7 @@ router.post('/type', function(req, res) {
         user.admin = true;
         user.save(function(err) {
             if (err) return res.status(409).send({err : err});
-            return res.status(200);
+            return res.sendStatus(200);
         });
     });
 });
@@ -66,14 +66,14 @@ router.post('/type', function(req, res) {
 router.delete('/delete', function(req, res) {
     User.remove({ username: req.body.user }, function(err) {
         if (err) return res.status(409).send({err : err});
-        return res.status(200);
+        return res.sendStatus(200);
     });
 });
 
 router.post('/edit', function(req, res) {
-    User.update({ username: req.body.user }, { description: req.body.description }, function(err) {
-            if (err) return res.status(409).send({err : err});
-            return res.status(200);
+    User.update({ username: req.body.user }, { name: req.body.name, description: req.body.description }, function(err) {
+        if (err) return res.status(409).send({err : err});
+        return res.sendStatus(200);
     });
 });
 

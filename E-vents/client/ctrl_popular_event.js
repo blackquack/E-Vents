@@ -1,25 +1,40 @@
 var app = angular.module('app');
 
 app.controller('popularEventController',
-    ['$scope', 'PostingService', '$location', 'AuthService',
-    function ($scope, PostingService, $location, AuthService) {
+    ['$scope', 'PostingService', '$location', 'AuthService', 'UserService',
+    function ($scope, PostingService, $location, AuthService, UserService) {
 
         /* INITIALIZE USERNAME */
         USERNAME = null;
         if (AuthService.loginStatus() == true) 
             USERNAME = AuthService.getUserInfo().username;
 
-        /* CHECK IF LOGGED IN & REDIRECT FUNCTION */
+        /* FUNCTION TO CHECK IF LOGGED IN & REDIRECT */
         redirectNotLogged = function() {
             if (AuthService.loginStatus() == false)
                 $location.path('/register');
         }
 
-        /* GET ALL EVENT POSTINGS */
-        PostingService.allPost.query(function(events){
-            var popularEvent = getPopularEvent(events)
-            setPopularEvent(popularEvent)
+
+        var userLikes
+
+        /* GET UPDATED VERSION OF USER */
+        UserService.getUser.get({user:USERNAME}, 
+        function(user){
+            userLikes = user.likes
+            setMostPopular();
+        },
+        function(err){
+            setMostPopular();
         })
+
+        /* GET ALL EVENT POSTINGS & SET MOST POPULAR*/
+        setMostPopular = function() {
+            PostingService.allPost.query(function(events){
+                var popularEvent = getPopularEvent(events)
+                setPopularEvent(popularEvent)
+            })
+        }
 
         getPopularEvent = function(events) {
             var attendingNum = -1;
@@ -75,7 +90,7 @@ app.controller('popularEventController',
         /* SET LIKE BUTTON INITIAL TEXT */
         setLikeText = function(event) {
             if (USERNAME == null) return;
-            if (AuthService.getUserInfo().likes.indexOf(event._id) > -1) {
+            if (userLikes.indexOf(event._id) > -1) {
                 return 'Unlike'
             } else {
                 return 'Like'
