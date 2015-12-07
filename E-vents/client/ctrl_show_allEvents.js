@@ -22,6 +22,9 @@ app.controller('alleventsController',
 		function(user){
 			userLikes = user.likes
 			setAllPostings();
+		},
+		function(err){
+			setAllPostings();
 		})	
 
 		/* FUNCTION TO SHOW ALL EVENT POSTINGS TYPE BASE ON URL */
