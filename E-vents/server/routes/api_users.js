@@ -55,7 +55,7 @@ router.get('/:user/messages/:id', function(req, res) {
 router.post('/type', function(req, res) {
     User.findOne({ username: req.body.user }, function(err, user) {
         if (err) return res.status(409).send({err : err});
-        user.admin = true;
+        user.admin = !user.admin;
         user.save(function(err) {
             if (err) return res.status(409).send({err : err});
             return res.sendStatus(200);
