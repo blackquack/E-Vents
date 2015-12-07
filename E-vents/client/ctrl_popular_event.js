@@ -23,6 +23,9 @@ app.controller('popularEventController',
         function(user){
             userLikes = user.likes
             setMostPopular();
+        },
+        function(err){
+            setMostPopular();
         })
 
         /* GET ALL EVENT POSTINGS & SET MOST POPULAR*/

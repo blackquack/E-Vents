@@ -23,6 +23,9 @@ app.controller('homeController',
         function(user){
             userLikes = user.likes
             checkAndSet();
+        },
+        function(err){
+            checkAndSet();
         })  
 
         /* MAIN EVENT VALUES */
