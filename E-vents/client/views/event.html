@@ -20,11 +20,11 @@
                     <h4 class="pull-right">{{cost}} 
                     <a class="btn btn-primary" ng-click="eventClick()" ng-disabled="userJoined">JOIN</a>
                     </h4>
-                    <h4><a href="#">{{name}}</a></h4>
+                    <h4>{{name}}</h4>
                     <p>{{description}}</p>
                 </div>
                 <div class="ratings">
-                    <p><p class="pull-right"><a ng-href="#/event/{{event._id}}">{{attendance.length}} attending</a></p>
+                    <p><p class="pull-right">{{attendance.length}} attending</p>
                         <button type="button" class="btn btn-default btn-sm" ng-click="like()">
                             <i class="fa fa-thumbs-o-up"></i> 
                             {{likeText}}

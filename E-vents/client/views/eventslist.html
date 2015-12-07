@@ -14,7 +14,7 @@
         </div>
 
         <div class="col-md-9">
-            <h4>SEARCH EVENT NAME, DATE, OR DESCRIPTION:</h4>
+            <h4>SEARCH EVENT NAME, DATE, OR LOCATION:</h4>
             <input id="search" class="form-control" ng-model="searchText"> </input>
             <div ng-repeat="event in allEvents | filter:searchText">
                 <div class="thumbnail">
@@ -24,6 +24,7 @@
                             <a class="btn btn-primary" ng-click="eventClick(event)" ng-disabled="userJoined(event)">JOIN</a>
                         </h4>
                         <h4><a ng-href="#/event/{{event._id}}">{{event.name}}</a></h4>
+                        <h5>{{event.location}}</h5>
                         <h6>{{event.date.substring(0,10)}}</h6>
                         <p>{{event.description}}</p>
                     </div>

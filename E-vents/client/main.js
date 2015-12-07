@@ -3,7 +3,8 @@ var app = angular.module('app', ['ngRoute', 'ngResource', 'ngMaterial', 'ngMessa
 app.config(function ($routeProvider) {
     $routeProvider
     .when('/', {
-      templateUrl: 'views/home.html'
+      templateUrl: 'views/home.html',
+      controller: 'homeController'
     })
     .when('/login', {
         templateUrl: 'views/login.html',
@@ -16,6 +17,10 @@ app.config(function ($routeProvider) {
     .when('/createEvent', {
         templateUrl: 'views/register_post.html',
         controller: 'registerPostingController'
+    })
+    .when('/popularEvent', {
+        templateUrl: 'views/popular_event.html',
+        controller: 'popularEventController'
     })
     .when('/about', {
         templateUrl: 'views/about.html',
@@ -32,6 +37,10 @@ app.config(function ($routeProvider) {
     .when('/user/:username', {
         templateUrl: 'views/profile.html',
         controller: 'profileController',
+    })
+    .when('/editprofile', {
+        templateUrl: 'views/editprofile.html',
+        controller: 'editprofileController',
     })
     .when('/messages', {
       templateUrl: 'views/messages.html',

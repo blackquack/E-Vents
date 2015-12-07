@@ -29,6 +29,11 @@
 
 /* END Post register */
 
+#name {
+  font-color: white;
+  font-size: 12px;
+}
+
 #search {
   margin-bottom: 30px;
 }

@@ -1,4 +1,4 @@
-<h1>{{user.name}}'s Profile
+<h1>{{user}}'s Profile
 
 <md-button class="md-raised md-primary pull-right" ng-click="showDialog($event)">
 <md-tooltip md-visible="demo.showTooltip" md-direction="{{demo.tipDirection}}">
@@ -20,10 +20,6 @@
         <div class="ratings">
             <p class="pull-right"><a ng-href="#/event/{{event._id}}">{{event.attendance.length}} attending</a></p>
             <p>
-                <button type="button" class="btn btn-default btn-sm" ng-click="like(event)">
-                    <i class="fa fa-thumbs-o-up"></i> 
-                    {{likeText(event)}}
-                </button>
                 {{event.likes}} likes
             </p>
         </div>
