@@ -163,8 +163,8 @@ angular.module('app').controller('dashboardController',
     $scope.isCurrent = function(user){
         return user.username ==  $scope.user.username;
     };
-    $scope.changePermission = function(user){
-    
+    $scope.changePermission = function(usertochange){
+        UserService.changeUserPermission.save({user : usertochange.username});
     };
     $scope.tableClick = function(username) {
       $location.path('/profile/' + username);

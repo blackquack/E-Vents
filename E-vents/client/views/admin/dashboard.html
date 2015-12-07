@@ -24,8 +24,8 @@
                             </md-tooltip>
                             <i class="fa fa-user"></i>
                     </md-button>
-                    <md-button ng-show='user.admin'  class="md-raised custombtn">Make User</md-button>
-                    <md-button ng-show='!user.admin' class="md-raised md-primary custombtn">Make Admin</md-button>
+                    <md-button ng-show='user.admin' ng-click='changePermission(user)' class="md-raised custombtn">Make User</md-button>
+                    <md-button ng-show='!user.admin' ng-click='changePermission(user)' class="md-raised md-primary custombtn">Make Admin</md-button>
                     <md-button ng-click='user.admin = !user.admin' class="md-raised md-warn">Delete</md-button>
                 </td>
 

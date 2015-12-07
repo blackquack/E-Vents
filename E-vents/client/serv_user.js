@@ -6,6 +6,7 @@ angular.module('app').factory('UserService',
 		getUser: 		$resource('/api/user/:user', {user: '@user'}),
 		getAllUsers:    $resource('/api/user/all'),
 		getEvents:		$resource('/api/user/:user/attendance', {user: '@user'}),
-		editUser:		$resource('/api/user/edit')
+		editUser:		$resource('/api/user/edit'),
+		changeUserPermission : $resource('/api/user/type')
 	})
 }])

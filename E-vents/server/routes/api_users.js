@@ -25,7 +25,7 @@ router.get('/:user/attendance', function(req, res) {
     select('attendance').
     exec(function(err, attendance) {
         if (err) return res.status(409).send({err : err});
-        return res.status(200).send(attendance);      
+        return res.status(200).send(attendance);
     })
 });
 
@@ -53,7 +53,7 @@ router.get('/:user/messages/:id', function(req, res) {
 });
 
 router.post('/type', function(req, res) {
-    User.findOne({ username: req.body.user }, function(req, user) {
+    User.findOne({ username: req.body.user }, function(err, user) {
         if (err) return res.status(409).send({err : err});
         user.admin = true;
         user.save(function(err) {
