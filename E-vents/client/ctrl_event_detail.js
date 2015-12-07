@@ -1,8 +1,8 @@
 var app = angular.module('app');
 
 app.controller('eventController',
-	['$scope', 'PostingService', '$routeParams', '$location', 'AuthService',
-  	function ($scope, PostingService, $routeParams, $location, AuthService) {
+	['$scope', 'PostingService', '$routeParams', '$location', 'AuthService', 'UserService',
+  	function ($scope, PostingService, $routeParams, $location, AuthService, UserService) {
 
   		/* CHECK IF LOGGED IN */
     	if (AuthService.loginStatus() == false) {
@@ -28,7 +28,7 @@ app.controller('eventController',
 			$scope.name = post.name
 			$scope.description = post.description
 			$scope.likes = post.likes
-			$scope.likeText = setLikeText(post)
+			setLikeText(post)
 			$scope.comments = post.comments
 			$scope.attendance = post.attendance
 			$scope.userJoined = userJoined(post)
@@ -54,11 +54,14 @@ app.controller('eventController',
 
 		/* SET LIKE BUTTON INITIAL TEXT */
 		setLikeText = function(event) {
-			if (AuthService.getUserInfo().likes.indexOf(event._id) > -1) {
-				return 'Unlike'
-			} else {
-				return 'Like'
-			}
+			UserService.getUser.get({user:USERNAME}, 
+			function(user){
+				if (user.likes.indexOf(event._id) > -1) {
+					$scope.likeText = 'Unlike'
+				} else {
+					$scope.likeText = 'Like'
+				}
+			})			
 		}
 
 		/* LIKE BUTTON */
