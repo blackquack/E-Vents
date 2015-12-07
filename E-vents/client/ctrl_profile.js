@@ -1,7 +1,13 @@
 angular.module('app').controller('profileController',
-['$scope', '$location', 'AuthService', '$routeParams', 'UserService', '$mdDialog', '$mdMedia',
-function ($scope, $location, AuthService, $routeParams, UserService, $mdDialog, $mdMedia) {
-    $scope.user = $routeParams.username
+['$scope', '$location', 'AuthService', '$routeParams', 'UserService', '$mdDialog', '$mdMedia', 'UserService',
+function ($scope, $location, AuthService, $routeParams, UserService, $mdDialog, $mdMedia, UserService) {
+    
+
+    UserService.getUser.get({user: $routeParams.username}, 
+        function(user){
+            $scope.user = user.username
+            if (user.name != null) $scope.user = user.name
+    })
     $scope.greet = "Profile Page";
 
     /* GOTO HOME IF NO USER EXIST, ALSO SET EVENTS */
@@ -58,6 +64,9 @@ function ($scope, $location, AuthService, $routeParams, UserService, $mdDialog, 
 angular.module('app').controller('myprofileController',
 ['$scope', '$location', 'AuthService', 'UserService',
 function ($scope, $location, AuthService, UserService) {
+
+    $scope.username = AuthService.getUserInfo().username
+    if (AuthService.getUserInfo().name != null) $scope.name = AuthService.getUserInfo().name
     $scope.user = AuthService.getUserInfo();
     $scope.greet = "Profile Page";
 
