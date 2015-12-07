@@ -1,0 +1,84 @@
+<div class="row" id="reg">
+  <h1>Host an E-Vent</h1>
+    <div class="col-md-5">
+        <form class="form">
+
+          <!-- EVENT NAME -->  
+	        <div class="form-group">
+	          	<label class="control-label md-headline">Event Name:</label>
+	          	  <div class="form-control-static">
+            		<input type="text" ng-model="name" required="true">
+                <span style="color:red" ng-show="form.name">required</span>
+
+          		</div>
+	        </div>
+
+          <!-- EVENT DESCRIPTION -->
+          <div class="form-group">
+              <label class="control-label md-headline">Event Description:</label>
+                <div class="form-control-static">
+                <textarea placeholder="Maximum 500 characters" maxlength="500" ng-model="description"></textarea>
+              </div>
+          </div>
+
+      </form>
+    </div>
+
+
+    <div class="col-md-4">
+      <form class="form">
+
+          <!-- LOCATION -->
+          <div class="form-group">
+              <label class="control-label md-headline">Location</label>
+              <div class="form-control-static">
+                <label class="control-label">Address</label>
+                <input type="text" ng-model="address">
+                <span style="color:red" ng-show="form.address">required</span>
+
+                <br><br>
+                <label class="control-label">City</label>
+                <input id="locOff" type="text" ng-model="city">
+                <span style="color:red" ng-show="form.city">required</span>
+
+              </div>
+          </div>
+
+          <!-- DATE -->
+          <div class="form-group">
+              <label class="control-label md-headline">Date</label>
+              <br>
+              <md-datepicker ng-model="date" md-placeholder="Enter date" md-min-date="minDate"></md-datepicker>
+          </div>
+
+          <!-- COST -->
+          <div class="form-group">
+              <label class="control-label md-headline">Cost</label>
+              <div class="form-control-static">
+                <span class="form-control-addon">$</span>
+                <input type="text" ng-keypress="filterValue($event)" ng-model="cost">
+              </div>
+          </div>
+      </form>
+    </div>
+
+    <div class="col-md-3">
+
+        <!-- GAMES -->
+        <div class="form-group">
+          <label class="control-label md-headline">Games</label>
+          <div flex="50" ng-repeat="game in games">
+            <md-checkbox ng-checked="exists(game, selected)" ng-click="toggle(game, selected)">
+              {{ game }}
+            </md-checkbox>
+          </div>
+        </div>
+    </div>
+
+    <!-- BUTTONS -->
+    <md-button class="md-raised" ng-click="register()">Register Event</md-button>
+    <a href="#/">
+      <md-button class="md-raised">Cancel</md-button>
+    </a>
+
+</div>

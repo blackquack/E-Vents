@@ -1,0 +1,29 @@
+<h1>{{user}}'s Profile
+
+<h5>{{description}}</h5>
+
+<md-button class="md-raised md-primary pull-right" ng-click="showDialog($event)">
+<md-tooltip md-visible="demo.showTooltip" md-direction="{{demo.tipDirection}}">
+    Compose
+</md-tooltip>
+<i class="fa fa-envelope"></i>
+</md-button>
+</h1>
+<h2>Events</h2>
+
+<div class="col-md-4" ng-repeat="event in events">
+    <div class="thumbnail">
+        <div class="caption-full">
+            <h4 class="pull-right">{{costName(event.cost)}}
+            </h4>
+            <h4><a ng-href="#/event/{{event._id}}">{{event.name}}</a></h4>
+            <h6>{{event.date.substring(0,10)}}</h6>
+        </div>
+        <div class="ratings">
+            <p class="pull-right"><a ng-href="#/event/{{event._id}}">{{event.attendance.length}} attending</a></p>
+            <p>
+                {{event.likes}} likes
+            </p>
+        </div>
+    </div>
+</div>
