@@ -22,9 +22,6 @@ app.config(function ($routeProvider) {
         templateUrl: 'views/popular_event.html',
         controller: 'popularEventController'
     })
-    .when('/about', {
-        templateUrl: 'views/about.html',
-    })
     .when('/event/:id', {
         templateUrl: 'views/event.html',
         controller: 'eventController'
@@ -32,7 +29,6 @@ app.config(function ($routeProvider) {
     .when('/myprofile/', {
         templateUrl: 'views/myprofile.html',
         controller: 'myprofileController',
-
     })
     .when('/user/:username', {
         templateUrl: 'views/profile.html',

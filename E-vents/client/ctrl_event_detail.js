@@ -20,11 +20,17 @@ app.controller('eventController',
 		});
 
 		USERNAME = AuthService.getUserInfo().username;
+		$scope.testt = AuthService.getUserInfo().username;
 
 		/* FUNCTION TO INITIALIZE */
 		setPost = function(post) {
 			$scope.cost = post.cost
-			if ($scope.cost == 0) $scope.cost = 'FREE'
+			if ($scope.cost == 0) {
+				$scope.cost = 'FREE'
+			}
+			else{
+				$scope.cost = "$" + $scope.cost 
+			}
 			$scope.name = post.name
 			$scope.description = post.description
 			$scope.likes = post.likes
