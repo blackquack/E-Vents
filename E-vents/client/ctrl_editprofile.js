@@ -5,19 +5,26 @@ app.controller('editprofileController',
   	function ($scope, UserService, $location, AuthService) {
 
     	if (AuthService.loginStatus() == false) {
-        	$location.path('/register')
+        	$location.path('/')
         	return
     	}
 
-    	$scope.username = AuthService.getUserInfo().username;
-    	$scope.name = AuthService.getUserInfo().name;
-    	$scope.id = AuthService.getUserInfo()._id;
+      USERNAME = AuthService.getUserInfo().username
 
-	    $scope.submitEdits = function () {
-	    	UserService.editUser.save({
-	    		name: "test",
-	    		description: "test"
-	    	})
+    	$scope.username = USERNAME
+    	$scope.name = AuthService.getUserInfo().name
+      $scope.description = AuthService.getUserInfo().description
+
+	    $scope.submitEdits = function() {
+        UserService.editUser.save({
+          username: USERNAME,
+          name: $scope.name,
+          description: $scope.description
+        })
 	    }
+
+
+
+
   	}
 ]);
