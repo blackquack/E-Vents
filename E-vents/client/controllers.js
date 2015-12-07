@@ -137,7 +137,7 @@ function ($scope, $location, AuthService,$route,$window) {
         })
         .catch(function () {
             $scope.error = true;
-            $scope.errorMessage = "Invalid email and/or password";
+            $scope.errorMessage = "Invalid login.";
         });
 
     };

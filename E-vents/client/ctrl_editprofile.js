@@ -10,6 +10,14 @@ app.controller('editprofileController',
     	}
 
     	$scope.username = AuthService.getUserInfo().username;
+    	$scope.name = AuthService.getUserInfo().name;
+    	$scope.id = AuthService.getUserInfo()._id;
 
+	    $scope.submitEdits = function () {
+	    	UserService.editUser.save({
+	    		name: "test",
+	    		description: "test"
+	    	})
+	    }
   	}
 ]);
