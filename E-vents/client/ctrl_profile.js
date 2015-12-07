@@ -2,10 +2,16 @@ angular.module('app').controller('profileController',
 ['$scope', '$location', 'AuthService', '$routeParams', 'UserService', '$mdDialog', '$mdMedia', 'UserService',
 function ($scope, $location, AuthService, $routeParams, UserService, $mdDialog, $mdMedia, UserService) {
     
+    /* CHECK IF LOGGED IN */
+    if (AuthService.loginStatus() == false) {
+        $location.path('/')
+        return
+    }
 
     UserService.getUser.get({user: $routeParams.username}, 
         function(user){
             $scope.user = user.username
+            $scope.description = user.description
             if (user.name != null) $scope.user = user.name
     })
     $scope.greet = "Profile Page";
@@ -13,7 +19,6 @@ function ($scope, $location, AuthService, $routeParams, UserService, $mdDialog, 
     /* GOTO HOME IF NO USER EXIST, ALSO SET EVENTS */
     UserService.getEvents.get({user: $routeParams.username}, 
     function(result){
-        if (result._id == null) $location.path('/')
         $scope.events = result.attendance;
     });
 
@@ -65,12 +70,24 @@ angular.module('app').controller('myprofileController',
 ['$scope', '$location', 'AuthService', 'UserService',
 function ($scope, $location, AuthService, UserService) {
 
-    $scope.username = AuthService.getUserInfo().username
-    if (AuthService.getUserInfo().name != null) $scope.name = AuthService.getUserInfo().name
-    $scope.user = AuthService.getUserInfo();
+    /* CHECK IF LOGGED IN */
+    if (AuthService.loginStatus() == false) {
+        $location.path('/')
+        return
+    }
+
+    USERNAME = AuthService.getUserInfo().username
+
+    UserService.getUser.get({user: USERNAME}, 
+        function(user){
+            $scope.username = user.username
+            $scope.name = user.name
+            $scope.description = user.description
+    })
+
     $scope.greet = "Profile Page";
 
-    UserService.getEvents.get({user: AuthService.getUserInfo().username}, 
+    UserService.getEvents.get({user: USERNAME}, 
     function(result){
         $scope.events = result.attendance;
     });
