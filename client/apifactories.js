@@ -8,11 +8,13 @@ angular.module('app').factory('UserService',
 		getUser: 		$resource('/api/user/:user', {user: '@user'}),
 		getAllUsers:    $resource('/api/user/all'),
 		getEvents:		$resource('/api/user/:user/attendance', {user: '@user'}),
-		editUser:		$resource('/api/user/edit')
+		editUser:		$resource('/api/user/edit'),
+		delUser : $resource('/api/user/delete'),
+		changeUserPermission : $resource('/api/user/type')
 	})
 }])
 
-angular.module('app').factory('PostingService', 
+angular.module('app').factory('PostingService',
 	['$resource', function ($resource) {
 	return ({
 		register: 	$resource('/api/post/register'),
