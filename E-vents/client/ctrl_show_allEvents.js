@@ -1,53 +1,63 @@
 var app = angular.module('app');
 
 app.controller('alleventsController',
-	['$scope', 'PostingService', 'AuthService', '$location', '$routeParams',
-  	function ($scope, PostingService, AuthService, $location, $routeParams) {
+	['$scope', 'PostingService', 'AuthService', '$location', '$routeParams', 'UserService',
+  	function ($scope, PostingService, AuthService, $location, $routeParams, UserService) {
 
   		/* INITIALIZE USERNAME */
   		USERNAME = null;
   		if (AuthService.loginStatus() == true) 
   			USERNAME = AuthService.getUserInfo().username;
 
-  		/* CHECK IF LOGGED IN & REDIRECT FUNCTION */
+  		/* FUNCTION TO CHECK IF LOGGED IN & REDIRECT */
         redirectNotLogged = function() {
         	if (AuthService.loginStatus() == false)
             	$location.path('/register');
         }
 
+        var userLikes
 
- 		/* SHOW ALL EVENT POSTINGS TYPE BASE ON URL */
-		if ($routeParams.type == 'all') {
-			PostingService.allPost.query(function(result){
-				$scope.allEvents = result;
-			});
-		} 
-		else if ($routeParams.type == 'lol') {
-		 	PostingService.gamePosts.query({game: "League of Legends"}, 
-			function(result){
-				$scope.allEvents = result;
-			})
-		}
-		else if ($routeParams.type == 'dota2') {
-		 	PostingService.gamePosts.query({game: "DOTA2"}, 
-			function(result){
-				$scope.allEvents = result;
-			})
-		}
-		else if ($routeParams.type == 'csgo') {
-		 	PostingService.gamePosts.query({game: "CS:GO"}, 
-			function(result){
-				$scope.allEvents = result;
-			})
-		}
-		else if ($routeParams.type == 'hearthstone') {
-		 	PostingService.gamePosts.query({game: "Hearthstone"}, 
-			function(result){
-				$scope.allEvents = result;
-			})
-		}
-		else {
-			$location.path('/')
+        /* GET UPDATED VERSION OF USER */
+		UserService.getUser.get({user:USERNAME}, 
+		function(user){
+			userLikes = user.likes
+			setAllPostings();
+		})	
+
+		/* FUNCTION TO SHOW ALL EVENT POSTINGS TYPE BASE ON URL */
+		setAllPostings = function() {
+			if ($routeParams.type == 'all') {
+				PostingService.allPost.query(function(result){
+					$scope.allEvents = result;
+				});
+			} 
+			else if ($routeParams.type == 'lol') {
+			 	PostingService.gamePosts.query({game: "League of Legends"}, 
+				function(result){
+					$scope.allEvents = result;
+				})
+			}
+			else if ($routeParams.type == 'dota2') {
+			 	PostingService.gamePosts.query({game: "DOTA2"}, 
+				function(result){
+					$scope.allEvents = result;
+				})
+			}
+			else if ($routeParams.type == 'csgo') {
+			 	PostingService.gamePosts.query({game: "CS:GO"}, 
+				function(result){
+					$scope.allEvents = result;
+				})
+			}
+			else if ($routeParams.type == 'hearthstone') {
+			 	PostingService.gamePosts.query({game: "Hearthstone"}, 
+				function(result){
+					$scope.allEvents = result;
+				})
+			}
+			else {
+				$location.path('/')
+			}
 		}
 
 
@@ -92,12 +102,11 @@ app.controller('alleventsController',
 			}
 			// logged in user, initial value
 			if (event.likeText == null && USERNAME != null) {
-				if (AuthService.getUserInfo().likes.indexOf(event._id) > -1) {
+				if (userLikes.indexOf(event._id) > -1) {
 					event.likeText = 'Unlike'
-					return 'Unlike'
+				} else {
+					event.likeText = 'Like'
 				}
-				event.likeText = 'Like'
-				return 'Like'
 			}
 
 			return event.likeText
@@ -107,13 +116,13 @@ app.controller('alleventsController',
 		$scope.like = function(event) {
 			redirectNotLogged();
 				
-			if (USERNAME != null) {
-				if (event.likeText == 'Like') {
-					like(event)
-				}
-				else {
-					unlike(event)
-				}
+			if (USERNAME == null) return
+			
+			if (event.likeText == 'Like') {
+				like(event)
+			}
+			else {
+				unlike(event)
 			}
 		}
 
