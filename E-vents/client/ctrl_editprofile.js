@@ -17,7 +17,7 @@ app.controller('editprofileController',
 
 	    $scope.submitEdits = function() {
         UserService.editUser.save({
-          username: USERNAME,
+          user: USERNAME,
           name: $scope.name,
           description: $scope.description
         })
