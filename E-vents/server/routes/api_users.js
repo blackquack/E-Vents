@@ -18,6 +18,13 @@ router.get('/:user', function(req, res) {
     });
 });
 
+router.delete('/:user', function(req, res) {
+    User.findOne({ username: req.params.user }, function(err, user) {
+        if (err) return res.status(409).send({err : err});
+        return res.status(200).send(user);
+    });
+});
+
 router.get('/:user/attendance', function(req, res) {
     User.
     findOne({ username: req.params.user }).
@@ -53,8 +60,10 @@ router.get('/:user/messages/:id', function(req, res) {
 });
 
 router.post('/type', function(req, res) {
+    //console.log(req.body.user);
     User.findOne({ username: req.body.user }, function(err, user) {
         if (err) return res.status(409).send({err : err});
+
         user.admin = !user.admin;
         user.save(function(err) {
             if (err) return res.status(409).send({err : err});

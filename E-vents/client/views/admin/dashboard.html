@@ -1,7 +1,9 @@
 <div>
     This is the dashboard {{user.name}}
      <a href='auth/logout'><p>logout<p> </a>
+
      <table class="table table-hover">
+         <caption>ADMINISTRSTOR</caption>
         <thead>
             <tr>
                 <th>User Email / Provider Dispaly Name</th>
@@ -12,7 +14,8 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="user in users " >
+            <!-- isCurrent(user) ? !isAdmin(user) : isAdmin(user) -->
+            <tr ng-repeat="user in users | filter : {admin : true}" >
                 <td ng-hide='isCurrent(user)'>{{user.username}}</td>
                 <td ng-hide='isCurrent(user)'>{{user.name}}</td>
                 <td ng-hide='isCurrent(user)'>{{user.provider}}</td>
@@ -25,11 +28,46 @@
                             <i class="fa fa-user"></i>
                     </md-button>
                     <md-button ng-show='user.admin' ng-click='changePermission(user)' class="md-raised custombtn">Make User</md-button>
-                    <md-button ng-show='!user.admin' ng-click='changePermission(user)' class="md-raised md-primary custombtn">Make Admin</md-button>
-                    <md-button ng-click='user.admin = !user.admin' class="md-raised md-warn">Delete</md-button>
+                    <md-button ng-hide='user.admin' ng-click='changePermission(user)' class="md-raised md-primary custombtn">Make Admin</md-button>
+                    <md-button ng-click='deleteUser(user)' class="md-raised md-warn">Delete</md-button>
                 </td>
 
             </tr>
         </tbody>
     </table>
+
+    <table class="table table-hover">
+        <caption>USER</caption>
+       <thead>
+           <tr>
+               <th>User Email / Provider Dispaly Name</th>
+               <th>Name</th>
+               <th>Provider</th>
+               <th>Admin Status</th>
+               <th>Edit</th>
+           </tr>
+       </thead>
+       <tbody>
+           <!-- isCurrent(user) ? !isAdmin(user) : isAdmin(user) -->
+           <tr ng-repeat="user in users | filter : {admin : false}" >
+               <td ng-hide='isCurrent(user)'>{{user.username}}</td>
+               <td ng-hide='isCurrent(user)'>{{user.name}}</td>
+               <td ng-hide='isCurrent(user)'>{{user.provider}}</td>
+               <td ng-hide='isCurrent(user)'>{{user.admin}}</td>
+               <td ng-hide='isCurrent(user)'>
+                   <md-button class="md-fab md-mini md-primary" href="">
+                           <md-tooltip md-visible="demo.showTooltip" md-direction="{{demo.tipDirection}}">
+                                       {{user.username}} Profile
+                           </md-tooltip>
+                           <i class="fa fa-user"></i>
+                   </md-button>
+                   <md-button ng-show='user.admin' ng-click='changePermission(user)' class="md-raised custombtn">Make User</md-button>
+                   <md-button ng-hide='user.admin' ng-click='changePermission(user)' class="md-raised md-primary custombtn">Make Admin</md-button>
+                   <md-button ng-click='deleteUser(user)' class="md-raised md-warn">Delete</md-button>
+               </td>
+
+           </tr>
+       </tbody>
+   </table>
+
 </div>
