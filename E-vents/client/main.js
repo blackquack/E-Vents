@@ -38,6 +38,10 @@ app.config(function ($routeProvider) {
         templateUrl: 'views/profile.html',
         controller: 'profileController',
     })
+    .when('/editprofile', {
+        templateUrl: 'views/editprofile.html',
+        controller: 'editprofileController',
+    })
     .when('/messages', {
       templateUrl: 'views/messages.html',
       controller: 'messagingController'
