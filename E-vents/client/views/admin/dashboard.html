@@ -1,10 +1,10 @@
 <div>
-    This is the dashboard {{name}}
+    This is the dashboard {{user.name}}
      <a href='auth/logout'><p>logout<p> </a>
      <table class="table table-hover">
         <thead>
             <tr>
-                <th>User Email</th>
+                <th>User Email / Provider Dispaly Name</th>
                 <th>Name</th>
                 <th>Provider</th>
                 <th>Admin Status</th>
@@ -13,11 +13,11 @@
         </thead>
         <tbody>
             <tr ng-repeat="user in users " >
-                <td >{{user.username}}</td>
-                <td >{{user.name}}</td>
-                <td >{{user.provider}}</td>
-                <td >{{user.admin}}</td>
-                <td >
+                <td ng-hide='isCurrent(user)'>{{user.username}}</td>
+                <td ng-hide='isCurrent(user)'>{{user.name}}</td>
+                <td ng-hide='isCurrent(user)'>{{user.provider}}</td>
+                <td ng-hide='isCurrent(user)'>{{user.admin}}</td>
+                <td ng-hide='isCurrent(user)'>
                     <md-button class="md-fab md-mini md-primary" href="">
                             <md-tooltip md-visible="demo.showTooltip" md-direction="{{demo.tipDirection}}">
                                         {{user.username}} Profile
@@ -26,7 +26,7 @@
                     </md-button>
                     <md-button ng-show='user.admin'  class="md-raised custombtn">Make User</md-button>
                     <md-button ng-show='!user.admin' class="md-raised md-primary custombtn">Make Admin</md-button>
-                    <md-button ng-click='test = !test' class="md-raised md-warn">Delete</md-button>
+                    <md-button ng-click='user.admin = !user.admin' class="md-raised md-warn">Delete</md-button>
                 </td>
 
             </tr>

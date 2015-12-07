@@ -10,7 +10,7 @@ var express = require('express'),
 var passport = require('passport');
 
 // mongoose
-mongoose.connect('mongodb://localhost/E-vent-DEVELOPMENT');
+mongoose.connect('mongodb://CaptainAfrica:teamafrica@ds056288.mongolab.com:56288/e-vents');
 
 // user schema/model
 var User = require('./models/user.js');

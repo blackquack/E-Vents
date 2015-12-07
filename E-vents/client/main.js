@@ -80,12 +80,17 @@ app.run(function ($rootScope, $location, $route, AuthService) {
     }
     else{
         $rootScope.hideNav = true;
-        if (next.display.requireAdmin && AuthService.getUserInfo() !== null ) {
-            if (!AuthService.getUserInfo().admin){
+        if (next.display.requireAdmin) {
+            if (AuthService.getUserInfo()){
+                if (!AuthService.getUserInfo().admin){
+                    $location.path('/admin');
+                    $route.reload();
+                }
+            }
+            else{
                 $location.path('/admin');
                 $route.reload();
             }
-
         }
     }
 

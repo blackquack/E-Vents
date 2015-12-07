@@ -146,17 +146,24 @@ function ($scope, $location, AuthService,$route,$window) {
 angular.module('app').controller('dashboardController',
   ['$scope', '$location', 'AuthService', 'UserService', '$resource',
   function ($scope, $location, AuthService,UserService,$resource ) {
-      $scope.test = false;
-      $scope.name = AuthService.getUserInfo().name;
-      console.log($scope.test);
+
+      $scope.user = AuthService.getUserInfo();
       console.log(AuthService.getUserInfo().username);
     // get the information for all users
-    UserService.getAllUsers.query(
-    function(users) {
-        console.log(users);
-        $scope.users = users;
-    });
-
+     var refresh = function(){
+        UserService.getAllUsers.query(
+            function(users) {
+                console.log(users);
+                $scope.users = users;
+        });
+    };
+    refresh();
+    $scope.isCurrent = function(user){
+        return user.username ==  $scope.user.username;
+    };
+    $scope.changePermission = function(user){
+    
+    };
     $scope.tableClick = function(username) {
       $location.path('/profile/' + username);
     }
