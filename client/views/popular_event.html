@@ -1,0 +1,31 @@
+<div class="container">
+        <div class="col-md-12">
+            <h1>Most Popular E-Vent with {{attending}} People Attending</h1>
+            <div class="thumbnail">
+                <a ng-href="#/event/{{eventID}}"><img class="img-responsive" src="http://i.imgur.com/qO6cDtO.png" alt=""></a>
+                <div class="caption-full">
+                    <h4 class="pull-right">FREE <a class="btn btn-primary" ng-click="joinClick()" ng-disabled="userJoined">JOIN</a></h4>
+                    <h4><a ng-href="#/event/{{eventID}}">{{name}}</a></h4>
+                    <h5>{{location}}</h5>
+                    <h6>{{date}}</h6>
+                    <p>{{description}}</p>
+                </div>
+                <div class="ratings">
+                    <a ng-href="#/event/{{eventID}}">
+                        <p class="pull-right">{{attending}} attending</p>
+                    </a>
+                    <p>
+                        <button type="button" class="btn btn-default btn-sm" ng-click="like()">
+                            <i class="fa fa-thumbs-o-up"></i> 
+                            {{likeText}}
+                        </button>
+                        {{likes}} likes
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

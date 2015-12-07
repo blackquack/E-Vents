@@ -1,0 +1,113 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title> <%= title %> </title>
+    <!-- styles -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.0.0-rc5/angular-material.min.css">
+    <link rel="stylesheet" href="./stylesheets/style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+</head>
+
+<body ng-app="app">
+    <!-- NAVIGATION BAR -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" ng-controller="navbarController" ng-hide='hideNav'>
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#/"><h5>Home</h5></a>
+            </div>
+            <div class="left" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="#/createEvent"><h5>Host an E-Vent</h5></a>
+                    </li>
+                    <li>
+                        <a href="#/popularEvent"><h5>Popular E-Vent</h5></a>
+                    </li>
+                </ul>
+                <div class="pull-right" ng-controller='loginController'>
+                    <form class="form-inline navbar-form">
+                        <div ng-hide='isLogged'>
+                            <input class="form-control form-inline" ng-model="loginForm.email" required type="text" width="60px" placeholder="Email" />
+                            <input class="form-control" ng-model="loginForm.password" required type="password" placeholder="Password" />
+                            <md-button class="md-fab md-mini md-primary" ng-click="login()">
+                                <md-tooltip md-visible="demo.showTooltip" md-direction="{{demo.tipDirection}}">
+                                    Log In
+                                </md-tooltip>
+                                <i class="fa fa-sign-out"></i>
+                            </md-button>
+                            <md-button class="md-fab md-mini md-primary " href="/auth/twitter">
+                                <md-tooltip md-visible="demo.showTooltip" md-direction="{{demo.tipDirection}}">
+                                    Twitter Login
+                                </md-tooltip>
+                                <i class="fa fa-twitter"></i>
+                            </md-button>
+                            <a href="#/register"><button class="btn btn-secondary-outline" type="submit">Register</button></a>
+                    </form>
+                </div>
+                <div class="pull-right" ng-show='isLogged' ng-controller='logoutController'>
+                    <span id="name">{{name}}</span>
+                    <md-button class="md-fab md-mini md-primary" href="#/myprofile">
+                        <md-tooltip md-visible="demo.showTooltip" md-direction="{{demo.tipDirection}}">
+                            My Profile
+                        </md-tooltip>
+                        <i class="fa fa-user"></i>
+                    </md-button>
+                    <md-button class="md-fab md-mini md-primary" href="#/messages">
+                        <md-tooltip md-visible="demo.showTooltip" md-direction="{{demo.tipDirection}}">
+                            My Messages
+                        </md-tooltip>
+                        <i class="fa fa-envelope-o"></i>
+                    </md-button>
+                    <md-button class="md-fab md-mini md-primary" ng-click="logout()">
+                        <md-tooltip md-visible="demo.showTooltip" md-direction="{{demo.tipDirection}}">
+                            Sign Out
+                        </md-tooltip>
+                        <i class="fa fa-sign-out"></i>
+                    </md-button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container" id='content'>
+        <div ng-view></div>
+    </div>
+    <script type="text/javascript">
+    window.user = <%-  user || 'null' %>;
+    </script>
+
+    <script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular-route.min.js"></script>
+    <script src='//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js'></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular-resource.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular-aria.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular-animate.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular-messages.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular-material/1.0.0-rc5/angular-material.min.js"></script>
+
+    <script src="./main.js"></script>
+    <script src="./services.js"></script>
+    <script src="./apifactories.js"></script>
+    <script src="./controllers.js"></script>
+    <script src="./ctrl_register_post.js"></script>
+    <script src="./ctrl_show_allEvents.js"></script>
+    <script src="./ctrl_event_detail.js"></script>
+    <script src="./ctrl_msgs.js"></script>
+    <script src="./ctrl_navbar.js"></script>
+    <script src="./ctrl_profile.js"></script>
+    <script src="./ctrl_home.js"></script>
+    <script src="./ctrl_editprofile.js"></script>
+    <script src="./ctrl_popular_event.js"></script>
+</body>
+</html>

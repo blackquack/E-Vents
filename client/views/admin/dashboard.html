@@ -1,0 +1,35 @@
+<div>
+    This is the dashboard {{name}}
+     <a href='auth/logout'><p>logout<p> </a>
+     <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>User Email</th>
+                <th>Name</th>
+                <th>Provider</th>
+                <th>Admin Status</th>
+                <th>Edit</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="user in users " >
+                <td >{{user.username}}</td>
+                <td >{{user.name}}</td>
+                <td >{{user.provider}}</td>
+                <td >{{user.admin}}</td>
+                <td >
+                    <md-button class="md-fab md-mini md-primary" href="">
+                            <md-tooltip md-visible="demo.showTooltip" md-direction="{{demo.tipDirection}}">
+                                        {{user.username}} Profile
+                            </md-tooltip>
+                            <i class="fa fa-user"></i>
+                    </md-button>
+                    <md-button ng-show='user.admin'  class="md-raised custombtn">Make User</md-button>
+                    <md-button ng-show='!user.admin' class="md-raised md-primary custombtn">Make Admin</md-button>
+                    <md-button ng-click='test = !test' class="md-raised md-warn">Delete</md-button>
+                </td>
+
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -1,9 +1,0 @@
-<h1>My Messages</h1> <md-button class="md-raised pull-right" ng-click="showDialog($event)">Send a Message!</md-button>
-<md-list-item class="md-2-line" ng-repeat="msg in msgs">
-	<img class="md-avatar" src="http://i.imgur.com/ZVTXtFJ.png" width="40" height="40" class="img-circle"/>
-
-	<div class="md-list-item-text">
-		<h3  ng-click="toUserProfile()"> {{msg.from}} </h3>
-		<p> {{msg.message}} </p>
-	 </div>
-</md-list-item>
