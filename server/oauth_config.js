@@ -1,7 +1,7 @@
 module.exports = {
 	twitter: {
-		clientID: 'Y64emDEIW0XWktVEDOGUPOLY1',
-		clientSecret: 'ms7cXSIt4ypf5trTaxJus1M1BsgihIDcbY8u2o6sq0nT8Rms87',
+		clientID: 'aPzJn2taY4OcUFuz4mvJXEJft',
+		clientSecret: 'DEiYZySvF0aarEB0W5gbtrvQe9gjIZFxdPcrtTbgelsPG3oTyX',
 		callbackURL: 'http://e-vents.herokuapp.com/auth/twitter/callback'
 	}
 };
