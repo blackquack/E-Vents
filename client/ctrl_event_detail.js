@@ -20,7 +20,7 @@ app.controller('eventController',
 		});
 
 		USERNAME = AuthService.getUserInfo().username;
-		NAME = AuthService.getUserInfo().name;
+		$scope.testt = AuthService.getUserInfo().username;
 
 		/* FUNCTION TO INITIALIZE */
 		setPost = function(post) {
