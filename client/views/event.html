@@ -36,9 +36,9 @@
 
             <div class="well">
                 <h4>Attendees</h4>
-                <a ng-href="#/user/{{user}}" ng-repeat="user in attendance">
+                <a ng-href="#/user/{{user.username}}" ng-repeat="user in attendance">
                     <img src="http://i.imgur.com/ZVTXtFJ.png" width="40" height="40" class="img-circle"/>
-                    {{user}}
+                    {{user.name}}
                 </a>
             </div>
 
@@ -53,7 +53,7 @@
                 <div class="row" ng-repeat="comment in comments">
                     <hr>
                     <div class="col-md-12">
-                        <h4>{{comment.username}}</h4>
+                        <h4>{{comment.user.name}}</h4>
                         <p>{{comment.comment}}</p>
                     </div>
                 </div>

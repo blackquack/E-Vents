@@ -59,9 +59,10 @@ app.controller('registerPostingController',
                 cost:$scope.cost,
                 games: $scope.selected,
                 creator: AuthService.getUserInfo().username
-            })
+            }, function(data) {
+                $location.path('/event/' + data._id);
+            });
 
-            $location.path('/');
         }
 
         checkFormBad = function() {
