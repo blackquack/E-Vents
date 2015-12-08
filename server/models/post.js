@@ -8,9 +8,9 @@ var PostSchema = new mongoose.Schema({
     cost: Number,
     games: [String],
     likes: Number,
-    comments: [{user: {type: mongoose.Schema.Types.ObjectId, ref: 'User'}, comment:String}],
-    creator: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
-    attendance: [{type: mongoose.Schema.Types.ObjectId, ref: 'User'}]
+    comments: [{username:String, comment:String}],
+    creator: String,
+    attendance: [String]
 });
 
 module.exports = mongoose.model('Post', PostSchema);
