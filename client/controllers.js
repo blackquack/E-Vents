@@ -4,7 +4,6 @@ angular.module('app').controller('loginController',
 function ($scope, $location, AuthService,$route,$window, $mdToast, $document) {
 
     $scope.isLogged = AuthService.loginStatus();
-    console.log(AuthService.getUserInfo());
     $scope.greet = "Home Page";
     if ($scope.isLogged){
         $scope.username = AuthService.getUserInfo().name;
@@ -20,7 +19,7 @@ function ($scope, $location, AuthService,$route,$window, $mdToast, $document) {
         AuthService.login($scope.loginForm.email, $scope.loginForm.password)
         // handle success
         .then(function () {
-            console.log("Conneted!");
+            //console.log("Conneted!");
             $window.location.reload();
             $location.path('/');
 
@@ -42,7 +41,7 @@ function ($scope, $location, AuthService,$route,$window, $mdToast, $document) {
         AuthService.login_twitter()
         // handle success
         .then(function () {
-            console.log("oath working");
+            //console.log("oath working");
             //update the user's location
             //$location.path('/');
 
@@ -59,10 +58,9 @@ function ($scope, $location, AuthService,$route,$window, $mdToast, $document) {
 angular.module('app').controller('homeController',
 ['$scope', '$location', 'AuthService',
 function ($scope, $location, AuthService) {
-    console.log("hello");
-    console.log(AuthService.loginStatus());
+
     $scope.isLogged = AuthService.loginStatus();
-    console.log(AuthService.getUserInfo());
+
     $scope.greet = "Home Page";
     if ($scope.isLogged){
         $scope.username = AuthService.getUserInfo().name;
@@ -77,7 +75,7 @@ function ($scope, $location, AuthService,$window) {
         $scope.username = AuthService.getUserInfo().name;
     }
     $scope.logout = function () {
-        console.log('debugging');
+
         // call logout from service
         AuthService.logout()
         .then(function () {
@@ -93,8 +91,8 @@ function ($scope, $location, AuthService,$window) {
 
 /* handle login and register */
 angular.module('app').controller('registerController',
-['$scope', '$location', 'AuthService',
-function ($scope, $location, AuthService) {
+['$scope', '$location', 'AuthService', '$window',
+function ($scope, $location, AuthService,$window) {
 
     $scope.register = function () {
         // initial values
@@ -105,22 +103,37 @@ function ($scope, $location, AuthService) {
             $scope.errorMessage = 'Passwords dont match!';
             return;
         };
-        console.log("Showing email: " + $scope.registerForm.email );
-        console.log("Showing name: " + $scope.registerForm.name);
-        console.log("Showing password: " + $scope.registerForm.password);
-        // call register from service
-        AuthService.register($scope.registerForm.email, $scope.registerForm.password, $scope.registerForm.name)
-        // handle success
-        .then(function () {
-            console.log("Redirecting to login page");
-            $location.path('/');
-        })
-        // handle error
-        .catch(function () {
-            console.log("error occur");
+
+        if ($scope.registerForm.name == '') {
             $scope.error = true;
-            $scope.errorMessage = 'Email already exist!';
-        });
+            $scope.errorMessage = 'Name required!';
+            return;
+        };
+        // call register from service
+        if ($scope.error == false){
+            AuthService.register($scope.registerForm.email, $scope.registerForm.password, $scope.registerForm.name)
+            // handle success
+            .then(function () {
+
+                AuthService.login($scope.registerForm.email, $scope.registerForm.password)
+                // handle success
+                .then(function () {
+                    //console.log("Conneted!");
+                    $window.location.reload();
+                    $location.path('/');
+
+                });
+
+            })
+            // handle error
+            .catch(function () {
+                console.log("error occur");
+                $scope.error = true;
+                $scope.errorMessage = 'Email already exist!';
+            });
+        }
+
+        $scope.error == false;
 
     };
 }]);
@@ -135,7 +148,6 @@ function ($scope, $location, AuthService,$route,$window) {
     // user clicks log in
     $scope.login = function () {
         $scope.error = false;
-        console.log('admin login clicked!');
         // call login from service
         AuthService.login_admin($scope.loginForm.email, $scope.loginForm.password)
         // handle success
