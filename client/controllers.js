@@ -165,9 +165,9 @@ function ($scope, $location, AuthService,$route,$window) {
 }]);
 
 angular.module('app').controller('dashboardController',
-  ['$scope', '$location', 'AuthService', 'UserService', '$resource', '$window',
-  function ($scope, $location, AuthService,UserService,$resource,$window ) {
-
+  ['$scope', '$location', 'AuthService', 'UserService', '$resource', '$window', '$rootScope',
+  function ($scope, $location, AuthService,UserService,$resource,$window,$rootScope ) {
+      $rootScope.edit = true;
       $scope.user = AuthService.getUserInfo();
       console.log(AuthService.getUserInfo().username);
     // get the information for all users
@@ -187,11 +187,17 @@ angular.module('app').controller('dashboardController',
 
         //$scope.$apply();
     };
+    $scope.editProfile = function(username) {
+      console.log('change!');
+      //console.log(username);
+      $rootScope.toEdit = username;
+      $location.path('/editprofile/');
+    };
 
     $scope.deleteUser = function(usertochange){
         console.log('delete clicked');
         UserService.delUser.delete({user : usertochange.username},function(){
-            console.log('ok');
+
             refresh();
         });
 
@@ -204,7 +210,8 @@ angular.module('app').controller('dashboardController',
     $scope.isAdmin = function(user){
         return user.admin == true;
     };
-    $scope.tableClick = function(username) {
-      $location.path('/profile/' + username);
-    }
+    $scope.logout = function(){
+        $rootScope.edit =false;
+        $location.path('/auth/logout');
+    };
 }]);

@@ -9,7 +9,7 @@
                 <th>User Email / Provider Dispaly Name</th>
                 <th>Name</th>
                 <th>Provider</th>
-                <th>Admin Status</th>
+                <th>Description</th>
                 <th>Edit</th>
             </tr>
         </thead>
@@ -19,9 +19,9 @@
                 <td ng-hide='isCurrent(user)'>{{user.username}}</td>
                 <td ng-hide='isCurrent(user)'>{{user.name}}</td>
                 <td ng-hide='isCurrent(user)'>{{user.provider}}</td>
-                <td ng-hide='isCurrent(user)'>{{user.admin}}</td>
+                <td ng-hide='isCurrent(user)'>{{user.description}}</td>
                 <td ng-hide='isCurrent(user)'>
-                    <md-button class="md-fab md-mini md-primary" href="">
+                    <md-button class="md-fab md-mini md-primary" ng-click='editProfile(user.username)'>
                             <md-tooltip md-visible="demo.showTooltip" md-direction="{{demo.tipDirection}}">
                                         {{user.username}} Profile
                             </md-tooltip>
@@ -43,7 +43,7 @@
                <th>User Email / Provider Dispaly Name</th>
                <th>Name</th>
                <th>Provider</th>
-               <th>Admin Status</th>
+               <th>Description</th>
                <th>Edit</th>
            </tr>
        </thead>
@@ -53,10 +53,10 @@
                <td ng-hide='isCurrent(user)'>{{user.username}}</td>
                <td ng-hide='isCurrent(user)'>{{user.name}}</td>
                <td ng-hide='isCurrent(user)'>{{user.provider}}</td>
-               <td ng-hide='isCurrent(user)'>{{user.admin}}</td>
+               <td ng-hide='isCurrent(user)'>{{user.description}}</td>
                <td ng-hide='isCurrent(user)'>
-                   <md-button class="md-fab md-mini md-primary" href="">
-                           <md-tooltip md-visible="demo.showTooltip" md-direction="{{demo.tipDirection}}">
+                   <md-button class="md-fab md-mini md-primary" ng-click='editProfile(user.username)'>
+                           <md-tooltip md-visible="demo.showTooltip"  md-direction="{{demo.tipDirection}}">
                                        {{user.username}} Profile
                            </md-tooltip>
                            <i class="fa fa-user"></i>
