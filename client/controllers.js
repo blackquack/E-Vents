@@ -146,19 +146,45 @@ function ($scope, $location, AuthService,$route,$window) {
 }]);
 
 angular.module('app').controller('dashboardController',
-  ['$scope', '$location', 'AuthService', 'UserService', '$resource',
-  function ($scope, $location, AuthService,UserService,$resource ) {
-      $scope.test = false;
-      $scope.name = AuthService.getUserInfo().name;
-      console.log($scope.test);
+  ['$scope', '$location', 'AuthService', 'UserService', '$resource', '$window',
+  function ($scope, $location, AuthService,UserService,$resource,$window ) {
+
+      $scope.user = AuthService.getUserInfo();
       console.log(AuthService.getUserInfo().username);
     // get the information for all users
-    UserService.getAllUsers.query(
-    function(users) {
-        console.log(users);
-        $scope.users = users;
-    });
+     refresh = function(){
+        $scope.users = UserService.getAllUsers.query(function(result){
+             $scope.users=result;
+        });
+        //     function(users) {
+        //         $scope.users = users;
+        // });
+     }
+    refresh();
+    $scope.changePermission = function(usertochange){
+        UserService.changeUserPermission.save({user : usertochange.username},function(){
+            refresh();
+        });
 
+        //$scope.$apply();
+    };
+
+    $scope.deleteUser = function(usertochange){
+        console.log('delete clicked');
+        UserService.delUser.delete({user : usertochange.username},function(){
+            console.log('ok');
+            refresh();
+        });
+
+        //$scope.$apply();
+    };
+
+    $scope.isCurrent = function(user){
+        return user.username ==  $scope.user.username;
+    };
+    $scope.isAdmin = function(user){
+        return user.admin == true;
+    };
     $scope.tableClick = function(username) {
       $location.path('/profile/' + username);
     }

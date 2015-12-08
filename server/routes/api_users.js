@@ -1,5 +1,5 @@
 var express = require('express'),
-
+util = require('util'),
 router = express.Router(),
 User = require('../models/user.js');
 Message = require('../models/message.js');
@@ -25,7 +25,7 @@ router.get('/:user/attendance', function(req, res) {
     select('attendance').
     exec(function(err, attendance) {
         if (err) return res.status(409).send({err : err});
-        return res.status(200).send(attendance);      
+        return res.status(200).send(attendance);
     })
 });
 
@@ -64,10 +64,14 @@ router.post('/type', function(req, res) {
 });
 
 router.delete('/delete', function(req, res) {
-    User.remove({ username: req.body.user }, function(err) {
+
+    //console.log("This is what i get  : "+req.param('user'));
+
+    User.remove({ username: req.param('user') }, function(err) {
         if (err) return res.status(409).send({err : err});
         return res.sendStatus(200);
     });
+
 });
 
 router.post('/edit', function(req, res) {
