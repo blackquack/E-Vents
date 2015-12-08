@@ -9,29 +9,19 @@ app.controller('homeController',
         if (AuthService.loginStatus() == true) 
             USERNAME = AuthService.getUserInfo().username;
 
+
+        /* MAIN EVENT VALUES */
+        EVENT_OF_DAY = 'League of Legends LAN Tournament'
+        EVENT_OF_DAY_DESC = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum'
+        EVENT_OF_DAY_LOC = '40 St. George, Toronto'
+
+
         /* FUNCTION TO CHECK IF LOGGED IN & REDIRECT */
         redirectNotLogged = function() {
             if (AuthService.loginStatus() == false)
                 $location.path('/register');
         }
 
-
-        var userLikes
-
-        /* GET UPDATED VERSION OF USER */
-        UserService.getUser.get({user:USERNAME}, 
-        function(user){
-            userLikes = user.likes
-            checkAndSet();
-        },
-        function(err){
-            checkAndSet();
-        })  
-
-        /* MAIN EVENT VALUES */
-        EVENT_OF_DAY = 'League of Legends LAN Tournament'
-        EVENT_OF_DAY_DESC = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum'
-        EVENT_OF_DAY_LOC = '40 St. George, Toronto'
 
         /* FUNCTION TO CHECK IF EVENT WAS CREATED AND SET HOMEPAGE */
         checkAndSet = function() {    
@@ -45,7 +35,7 @@ app.controller('homeController',
             })
         }
 
-        /* CREATE EVENT FUNCTION */
+        /* FUNCTION TO CREATE EVENT OF DAY*/
         createEventOfDay = function() {
             PostingService.register.save({
                 name: EVENT_OF_DAY,
@@ -61,7 +51,7 @@ app.controller('homeController',
             })
         }
 
-        /* SET HOME PAGE FUNCTION */
+        /* FUNCTION TO SET HOME PAGE */
         setHomePage = function(event) {
             $scope.name = event.name
             $scope.location = event.location
@@ -79,28 +69,43 @@ app.controller('homeController',
             }
         }
 
+        var userLikes
+
+        /* GET UPDATED VERSION OF USER */
+        if (USERNAME != null) {
+            UserService.getUser.get({user:USERNAME}, 
+            function(user){
+                userLikes = user.likes
+                checkAndSet();
+            })
+        }
+        else {
+            checkAndSet();
+        }
+
+
         /* SET JOIN BUTTON FUNCTIONALITY */
         $scope.joinClick = function() {
             redirectNotLogged();
 
-            if (USERNAME != null) {
-                // in the event already, no api to remove
-                if ($scope.attendance.indexOf(USERNAME) > -1)
-                    return
+            if (USERNAME == null) return
 
-                // join the event
-                PostingService.joinEvent.save({id:$scope.eventID, user:USERNAME})
-                // also update locally
-                $scope.attending++
-                $scope.userJoined = true;
-            }
+            // in the event already, no api to remove
+            if ($scope.attendance.indexOf(USERNAME) > -1)
+                return
+
+            // join the event
+            PostingService.joinEvent.save({id:$scope.eventID, user:USERNAME})
+            // also update locally
+            $scope.attending++
+            $scope.userJoined = true;
         }
 
 
 
         /* SET LIKE BUTTON INITIAL TEXT */
         setLikeText = function(event) {
-            if (USERNAME == null) return;
+            if (USERNAME == null) return 'Like';
             if (userLikes.indexOf(event._id) > -1) {
                 return 'Unlike'
             } else {
