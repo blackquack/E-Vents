@@ -4,7 +4,6 @@ angular.module('app').controller('loginController',
 function ($scope, $location, AuthService,$route,$window) {
 
     $scope.isLogged = AuthService.loginStatus();
-    console.log(AuthService.getUserInfo());
     $scope.greet = "Home Page";
     if ($scope.isLogged){
         $scope.username = AuthService.getUserInfo().name;
@@ -17,7 +16,7 @@ function ($scope, $location, AuthService,$route,$window) {
         AuthService.login($scope.loginForm.email, $scope.loginForm.password)
         // handle success
         .then(function () {
-            console.log("Conneted!");
+            //console.log("Conneted!");
             $window.location.reload();
             $location.path('/');
 
@@ -35,7 +34,7 @@ function ($scope, $location, AuthService,$route,$window) {
         AuthService.login_twitter()
         // handle success
         .then(function () {
-            console.log("oath working");
+            //console.log("oath working");
             //update the user's location
             //$location.path('/');
 
@@ -52,10 +51,9 @@ function ($scope, $location, AuthService,$route,$window) {
 angular.module('app').controller('homeController',
 ['$scope', '$location', 'AuthService',
 function ($scope, $location, AuthService) {
-    console.log("hello");
-    console.log(AuthService.loginStatus());
+
     $scope.isLogged = AuthService.loginStatus();
-    console.log(AuthService.getUserInfo());
+
     $scope.greet = "Home Page";
     if ($scope.isLogged){
         $scope.username = AuthService.getUserInfo().name;
@@ -70,7 +68,7 @@ function ($scope, $location, AuthService,$window) {
         $scope.username = AuthService.getUserInfo().name;
     }
     $scope.logout = function () {
-        console.log('debugging');
+
         // call logout from service
         AuthService.logout()
         .then(function () {
@@ -86,8 +84,8 @@ function ($scope, $location, AuthService,$window) {
 
 /* handle login and register */
 angular.module('app').controller('registerController',
-['$scope', '$location', 'AuthService',
-function ($scope, $location, AuthService) {
+['$scope', '$location', 'AuthService', '$window',
+function ($scope, $location, AuthService,$window) {
 
     $scope.register = function () {
         // initial values
@@ -109,8 +107,16 @@ function ($scope, $location, AuthService) {
             AuthService.register($scope.registerForm.email, $scope.registerForm.password, $scope.registerForm.name)
             // handle success
             .then(function () {
-                console.log("Redirecting to login page");
-                $location.path('/');
+
+                AuthService.login($scope.registerForm.email, $scope.registerForm.password)
+                // handle success
+                .then(function () {
+                    //console.log("Conneted!");
+                    $window.location.reload();
+                    $location.path('/');
+
+                });
+
             })
             // handle error
             .catch(function () {
@@ -135,7 +141,6 @@ function ($scope, $location, AuthService,$route,$window) {
     // user clicks log in
     $scope.login = function () {
         $scope.error = false;
-        console.log('admin login clicked!');
         // call login from service
         AuthService.login_admin($scope.loginForm.email, $scope.loginForm.password)
         // handle success
