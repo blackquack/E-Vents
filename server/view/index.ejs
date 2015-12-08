@@ -36,9 +36,13 @@
                 <div class="pull-right" ng-controller='loginController'>
                     <form class="form-inline navbar-form">
                         <div ng-hide='isLogged'>
+
+                            <!-- INPUTS -->
                             <input class="form-control form-inline" ng-model="loginForm.email" required type="text" width="60px" placeholder="Email" />
                             <input class="form-control" ng-model="loginForm.password" required type="password" placeholder="Password" />
-                            <md-button class="md-fab md-mini md-primary" ng-click="login()">
+
+                            <!-- LOGIN -->
+                            <md-button class="md-fab md-mini md-primary" type="submit" ng-click="login()">
                                 <md-tooltip md-visible="demo.showTooltip" md-direction="{{demo.tipDirection}}">
                                     Log In
                                 </md-tooltip>

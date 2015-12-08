@@ -1,7 +1,7 @@
 /* handle login and submit */
 angular.module('app').controller('loginController',
-['$scope', '$location', 'AuthService', '$route', '$window',
-function ($scope, $location, AuthService,$route,$window) {
+['$scope', '$location', 'AuthService', '$route', '$window', '$mdToast', '$document',
+function ($scope, $location, AuthService,$route,$window, $mdToast, $document) {
 
     $scope.isLogged = AuthService.loginStatus();
     console.log(AuthService.getUserInfo());
@@ -11,7 +11,10 @@ function ($scope, $location, AuthService,$route,$window) {
     }
     // user clicks log in
     $scope.login = function () {
-        $scope.error = false;
+
+        if ($scope.loginForm == undefined) return
+        if ($scope.loginForm.email == undefined || $scope.loginForm.email == "") return
+        if ($scope.loginForm.password == undefined || $scope.loginForm.password == "") return
 
         // call login from service
         AuthService.login($scope.loginForm.email, $scope.loginForm.password)
@@ -24,8 +27,12 @@ function ($scope, $location, AuthService,$route,$window) {
         })
         //
         .catch(function () {
-            $scope.error = true;
-            $scope.errorMessage = "Invalid email and/or password";
+            $mdToast.show(
+              $mdToast.simple()
+                .textContent('Invalid username or password.')
+                .position("right")
+                .hideDelay(3000)
+            );
         });
 
     };
